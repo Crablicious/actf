@@ -1,0 +1,36 @@
+
+  {
+    "type": "preamble",
+    "version": 2
+  }
+  
+  {
+    "type": "data-stream-class"
+  }
+  
+  {
+    "type": "event-record-class",
+    "payload-field-class": {
+      "type": "structure",
+      "member-classes": [
+        {
+          "name": "32-bit lil endian",
+          "field-class": {
+            "type": "fixed-length-bit-array",
+            "length": 32,
+            "byte-order": "little-endian",
+            "preferred-display-base": 16
+          }
+        },
+        {
+          "name": "32-bit big endian",
+          "field-class": {
+            "type": "fixed-length-bit-array",
+            "length": 32,
+            "byte-order": "big-endian",
+            "preferred-display-base": 16
+          }
+        }
+      ]
+    }
+  }

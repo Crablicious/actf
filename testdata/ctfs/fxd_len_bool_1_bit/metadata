@@ -1,0 +1,26 @@
+
+  {
+    "type": "preamble",
+    "version": 2
+  }
+  
+  {
+    "type": "data-stream-class"
+  }
+  
+  {
+    "type": "event-record-class",
+    "payload-field-class": {
+      "type": "structure",
+      "member-classes": [
+        {
+          "name": "1-bit lil endian",
+          "field-class": {
+            "type": "fixed-length-boolean",
+            "length": 1,
+            "byte-order": "little-endian"
+          }
+        },
+      ]
+    }
+  }

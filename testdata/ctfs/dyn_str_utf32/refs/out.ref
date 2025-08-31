@@ -1,0 +1,1 @@
+static length strings: { event-payload: { first string len: 36, I love sushi in Japanese: "お寿司が大好きです", second string len: 0, Zero len str: "", third string len: 42, I love sushi in Japanese: "お寿司が大好きです" } }

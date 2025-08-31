@@ -1,0 +1,74 @@
+
+  {
+    "type": "preamble",
+    "version": 2
+  }
+  
+  {
+    "type": "clock-class",
+    "id": "dummy clock",
+    "frequency": 1333337
+  }
+  
+  {
+    "type": "data-stream-class",
+    "default-clock-class-id": "dummy clock",
+    "event-record-header-field-class": {
+      "type": "structure",
+      "member-classes": [
+        {
+          "name": "current timestamp",
+          "field-class": {
+            "type": "fixed-length-unsigned-integer",
+            "length": 32,
+            "byte-order": "little-endian",
+            "roles": ["default-clock-timestamp"]
+          }
+        }
+      ]
+    },
+    "event-record-common-context-field-class": {
+      "type": "structure",
+      "member-classes": [
+        {
+          "name": "my 8 bit ctxt",
+          "field-class": {
+            "type": "fixed-length-unsigned-integer",
+            "length": 8,
+            "byte-order": "little-endian"
+          }
+        }
+      ]
+    }
+  }
+  
+  {
+    "type": "event-record-class",
+    "id": 0,
+    "specific-context-field-class": {
+      "type": "structure",
+      "member-classes": [
+        {
+          "name": "3-bit lil endian",
+          "field-class": {
+            "type": "fixed-length-unsigned-integer",
+            "length": 3,
+            "byte-order": "little-endian"
+          }
+        }
+      ]
+    },
+    "payload-field-class": {
+      "type": "structure",
+      "member-classes": [
+        {
+          "name": "5-bit lil endian",
+          "field-class": {
+            "type": "fixed-length-unsigned-integer",
+            "length": 5,
+            "byte-order": "little-endian"
+          }
+        }
+      ]
+    }
+  }

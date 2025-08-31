@@ -1,0 +1,2 @@
+{ event-payload: { 8-bit selector: 0, my optional: -10 } }
+{ event-payload: { 8-bit selector: 13, my optional: nil } }

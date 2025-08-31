@@ -1,0 +1,1 @@
+static length strings: { event-payload: { first string len: 22, You can fly string: "un été sans chaleur", second string len: 0, Zero len str: "" } }

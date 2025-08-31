@@ -1,0 +1,29 @@
+
+  {
+    "type": "preamble",
+    "version": 2
+  }
+  
+  {
+    "type": "data-stream-class"
+  }
+  
+  {
+    "type": "event-record-class",
+    "payload-field-class": {
+      "type": "structure",
+      "member-classes": [
+        {
+          "name": "32-bit lil endian",
+          "field-class": {
+            "type": "fixed-length-unsigned-integer",
+            "length": 32,
+            "byte-order": "little-endian"
+          }
+        },
+        {
+          "name": "32-bit big endian",
+          "field-class": {
+            "type": "fixed-length-signed-integer",
+            "length": 32,
+            "byte

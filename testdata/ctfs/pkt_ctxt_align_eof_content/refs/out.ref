@@ -1,0 +1,2 @@
+{ packet-context: { the packet content length: 128, the packet total length: 160 }, event-payload: { 32-bit lil endian: 0xdeadbeef, zero len str: "" } }
+{ packet-context: { the packet content length: 128, the packet total length: 160 }, event-payload: { 32-bit lil endian: 0xcafebabe, zero len str: "" } }

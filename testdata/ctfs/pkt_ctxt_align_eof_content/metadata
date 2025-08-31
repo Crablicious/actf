@@ -1,0 +1,61 @@
+
+  {
+    "type": "preamble",
+    "version": 2
+  }
+  
+  {
+    "type": "trace-class",
+  }
+  
+  {
+    "type": "data-stream-class",
+    "packet-context-field-class": {
+      "type": "structure",
+      "member-classes": [
+        {
+          "name": "the packet content length",
+          "field-class": {
+            "type": "fixed-length-unsigned-integer",
+            "length": 32,
+            "byte-order": "little-endian",
+            "roles": ["packet-content-length"]
+          }
+        },
+        {
+          "name": "the packet total length",
+          "field-class": {
+            "type": "fixed-length-unsigned-integer",
+            "length": 32,
+            "byte-order": "little-endian",
+            "roles": ["packet-total-length"]
+          }
+        }
+      ]
+    }
+  }
+  
+  {
+    "type": "event-record-class",
+    "payload-field-class": {
+      "type": "structure",
+      "member-classes": [
+        {
+          "name": "32-bit lil endian",
+          "field-class": {
+            "type": "fixed-length-unsigned-integer",
+            "length": 32,
+            "byte-order": "little-endian",
+            "preferred-display-base": 16
+          }
+        },
+        {
+          "name": "zero len str",
+          "field-class": {
+            "type": "static-length-string",
+            "length": 0,
+          }
+        }
+      ]
+    }
+  }

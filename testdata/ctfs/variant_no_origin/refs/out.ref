@@ -1,0 +1,2 @@
+{ event-payload: { 8-bit selector: 5, my variant: -0x5 } }
+{ event-payload: { 8-bit selector: 20, my variant: 0xdeadbeef } }

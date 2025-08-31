@@ -1,0 +1,30 @@
+{
+  "type": "structure",
+  "member-classes": [
+    {
+      "name": "Henri-Julien",
+      "field-class": {
+        "type": "fixed-length-signed-integer",
+        "length": 48,
+        "byte-order": "little-endian"
+      }
+    },
+    {
+      "name": "Casgrain",
+      "field-class": {
+        "type": "static-length-string",
+        "length": 32
+      },
+      "attributes": {
+        "my.tracer": {
+          "is-mask": true
+        }
+      }
+    }
+  ],
+  "attributes": {
+    "my.tracer": {
+      "version": 4
+    }
+  }
+}

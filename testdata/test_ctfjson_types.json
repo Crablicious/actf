@@ -1,0 +1,10 @@
+{
+  "json_type_null": null,
+  "json_type_boolean": false,
+  "json_type_double": 13.37,
+  "json_type_uint": 42,
+  "json_type_sint": -42,
+  "json_type_object": {},
+  "json_type_array": [12, "12"],
+  "json_type_string": "",
+}

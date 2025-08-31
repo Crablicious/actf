@@ -1,0 +1,4 @@
+*.ref text diff
+
+# Hack to make it not a target for git grep
+Makefile.legacy binary

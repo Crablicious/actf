@@ -1,0 +1,2 @@
+[01:00:00.000227999] { event-header: { current timestamp: 304, my event record class id: 8 }, event-payload: { ID8 8-bit lil endian: 0x85 } }
+[01:00:00.000232499] { event-header: { current timestamp: 310, my event record class id: 5 }, event-payload: { ID 5 32-bit lil endian: 0xdeadbeef } }

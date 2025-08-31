@@ -1,0 +1,1 @@
+[01:00:00.000227999] { event-header: { current timestamp: 304 }, event-common-context: { my 8 bit ctxt: 8 }, event-specific-context: { 3-bit lil endian: 5 }, event-payload: { 5-bit lil endian: 16 } }

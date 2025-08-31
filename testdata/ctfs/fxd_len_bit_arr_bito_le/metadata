@@ -1,0 +1,47 @@
+
+  {
+    "type": "preamble",
+    "version": 2
+  }
+  
+  {
+    "type": "data-stream-class"
+  }
+  
+  {
+    "type": "event-record-class",
+    "payload-field-class": {
+      "type": "structure",
+      "member-classes": [
+        {
+          "name": "green",
+          "field-class": {
+            "type": "fixed-length-bit-array",
+            "length": 5,
+            "byte-order": "little-endian",
+            "bit-order": "last-to-first"
+          }
+        },
+        {
+          "name": "blue",
+          "field-class": {
+            "type": "fixed-length-bit-array",
+            "length": 3,
+            "byte-order": "little-endian",
+            "bit-order": "first-to-last",
+            "alignment": 8
+          }
+        },
+        {
+          "name": "yellow",
+          "field-class": {
+            "type": "fixed-length-bit-array",
+            "length": 4,
+            "byte-order": "little-endian",
+            "bit-order": "last-to-first",
+            "alignment": 4,
+          }
+        }
+      ]
+    }
+  }

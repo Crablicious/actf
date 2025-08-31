@@ -1,0 +1,73 @@
+
+  {
+    "type": "preamble",
+    "version": 2
+  }
+  
+  {
+    "type": "data-stream-class"
+  }
+  
+  {
+    "type": "event-record-class",
+    "payload-field-class": {
+      "type": "structure",
+      "member-classes": [
+        {
+          "name": "my var len uint 1876916",
+          "field-class": {
+            "type": "variable-length-unsigned-integer",
+            "mappings": {
+              "first-unsigned-one": [[10, 20], [1876916, 3735928559]],
+            }
+          }
+        },
+        {
+          "name": "my var len uint 0",
+          "field-class": {
+            "type": "variable-length-unsigned-integer",
+            "mappings": {
+              "my zero": [[0, 0]],
+            }
+          }
+        },
+        {
+          "name": "my var len sint -220236",
+          "field-class": {
+            "type": "variable-length-signed-integer",
+            "mappings": {
+              "no match lol": [[0, 0]],
+            }
+          }
+        },
+        {
+          "name": "my var len sint 0",
+          "field-class": {
+            "type": "variable-length-signed-integer",
+            "mappings": {
+              "my sint zero": [[-100, 100]],
+              "my second sint zero": [[-100, 0]],
+            }
+          }
+        },
+        {
+          "name": "my var len sint 1876916",
+          "field-class": {
+            "type": "variable-length-signed-integer",
+            "mappings": {
+              "my nice value": [[-9223372036854775808, 1876915], [-9223372036854775808, 1876916]],
+            }
+          }
+        },
+        {
+          "name": "my var len sint int64_min (-9223372036854775808)",
+          "field-class": {
+            "type": "variable-length-signed-integer",
+            "mappings": {
+              "my min sint": [[-9223372036854775808, 0]],
+            }
+          }
+        },
+      ]
+    }
+  }

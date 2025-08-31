@@ -1,0 +1,60 @@
+
+  {
+    "type": "preamble",
+    "version": 2
+  }
+  
+  {
+    "type": "data-stream-class"
+  }
+  
+  {
+    "type": "event-record-class",
+    "name": "32-element static array",
+    "payload-field-class": {
+      "type": "structure",
+      "member-classes": [
+        {
+          "name": "my struct array",
+          "field-class": {
+            "type": "static-length-array",
+            "length": 2,
+            "minimum-alignment": 32,
+            "element-field-class": {
+              "type": "structure",
+              "member-classes": [
+                {
+                  "name": "array len",
+                  "field-class": {
+                    "type": "fixed-length-unsigned-integer",
+                    "length": 32,
+                    "byte-order": "little-endian"
+                  }
+                },
+                {
+                  "name": "my inner dyn array",
+                  "field-class": {
+                    "type": "dynamic-length-string",
+                    "length-field-location": {
+                      "origin": "event-record-payload",
+                      "path": ["my struct array", "array len"]
+                    }
+                  }
+                }
+              ]
+            }
+          }
+        },
+        {
+          "name": "my illegal outer dyn array",
+          "field-class": {
+            "type": "dynamic-length-string",
+            "length-field-location": {
+              "origin": "event-record-payload",
+              "path": ["my struct array", "array len"]
+            }
+          }
+        }
+      ]
+    }
+  }

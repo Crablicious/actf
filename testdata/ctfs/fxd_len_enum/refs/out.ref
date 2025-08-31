@@ -1,0 +1,2 @@
+{ event-payload: { 32-bit lil endian: 0xdeadbeef: "first-unsigned-one", 32-bit big endian: -0x21524111: "first-signed-one" } }
+{ event-payload: { 32-bit lil endian: 0x1337cafe: "second-unsigned-one", 32-bit big endian: 0x1337cafe: "second-signed-one" } }

@@ -1,0 +1,1 @@
+{ event-payload: { my var len uint 1876916: 1876916: "first-unsigned-one", my var len uint 0: 0: "my zero", my var len sint -220236: -220236: nil, my var len sint 0: 0: "my sint zero","my second sint zero", my var len sint 1876916: 1876916: "my nice value", my var len sint int64_min (-9223372036854775808): -9223372036854775808: "my min sint" } }

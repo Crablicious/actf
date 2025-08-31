@@ -1,0 +1,27 @@
+
+  {
+    "type": "preamble",
+    "version": 2
+  }
+  
+  {
+    "type": "data-stream-class"
+  }
+  
+  {
+    "type": "event-record-class",
+    "name": "static utf8 string",
+    "payload-field-class": {
+      "type": "structure",
+      "member-classes": [
+        {
+          "name": "un ete sans chaleur",
+          "field-class": {
+            "type": "static-length-string",
+            "encoding": "utf-8",
+            "length": 22,
+          }
+        }
+      ]
+    }
+  }

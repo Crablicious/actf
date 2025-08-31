@@ -1,0 +1,328 @@
+
+{
+  "type": "preamble",
+  "version": 2
+}
+
+{
+  "type": "clock-class",
+  "id": "monotonic",
+  "frequency": 1000000000
+}
+
+{
+  "type": "trace-class",
+  "packet-header-field-class": {
+    "type": "structure",
+    "member-classes": [
+      {
+        "name": "magic",
+        "field-class": {
+          "type": "fixed-length-unsigned-integer",
+          "length": 32,
+          "byte-order": "little-endian",
+          "preferred-display-base": 16,
+          "roles": ["packet-magic-number"]
+        }
+      },
+      {
+        "name": "data stream class id",
+        "field-class": {
+          "type": "fixed-length-unsigned-integer",
+          "length": 8,
+          "byte-order": "little-endian",
+          "roles": ["data-stream-class-id"]
+        }
+      },
+      {
+        "name": "data stream id",
+        "field-class": {
+          "type": "fixed-length-unsigned-integer",
+          "length": 8,
+          "byte-order": "little-endian",
+          "roles": ["data-stream-id"]
+        }
+      }
+    ]
+  }
+}
+{
+  "type": "data-stream-class",
+  "default-clock-class-id": "monotonic",
+  "packet-context-field-class": {
+    "type": "structure",
+    "member-classes": [
+      {
+        "name": "tstamp_begin",
+        "field-class": {
+          "type": "fixed-length-unsigned-integer",
+          "length": 64,
+          "byte-order": "little-endian",
+          "roles": ["default-clock-timestamp"]
+        }
+      },
+      {
+        "name": "tstamp_end",
+        "field-class": {
+          "type": "fixed-length-unsigned-integer",
+          "length": 64,
+          "byte-order": "little-endian",
+          "roles": ["packet-end-default-clock-timestamp"]
+        }
+      },
+      {
+        "name": "discarded_events",
+        "field-class": {
+          "type": "fixed-length-unsigned-integer",
+          "length": 16,
+          "byte-order": "little-endian",
+          "roles": ["discarded-event-record-counter-snapshot"]
+        }
+      },
+      {
+        "name": "seq_nr",
+        "field-class": {
+          "type": "fixed-length-unsigned-integer",
+          "length": 8,
+          "byte-order": "little-endian",
+          "roles": ["packet-sequence-number"]
+        }
+      },
+      {
+        "name": "content_sz",
+        "field-class": {
+          "type": "fixed-length-unsigned-integer",
+          "length": 64,
+          "byte-order": "little-endian",
+          "roles": ["packet-content-length"]
+        }
+      },
+      {
+        "name": "total_sz",
+        "field-class": {
+          "type": "fixed-length-unsigned-integer",
+          "length": 64,
+          "byte-order": "little-endian",
+          "roles": ["packet-total-length"]
+        }
+      }
+    ]
+  },
+  "event-record-header-field-class": {
+    "type": "structure",
+    "member-classes": [
+      {
+        "name": "tstamp",
+        "field-class": {
+          "type": "fixed-length-unsigned-integer",
+          "length": 64,
+          "byte-order": "little-endian",
+          "roles": ["default-clock-timestamp"]
+        }
+      },
+      {
+        "name": "id",
+        "field-class": {
+          "type": "fixed-length-unsigned-integer",
+          "length": 8,
+          "byte-order": "little-endian",
+          "roles": ["event-record-class-id"]
+        }
+      }
+    ]
+  },
+  "event-record-common-context-field-class": {
+    "type": "structure",
+    "member-classes": [
+      {
+        "name": "tid",
+        "field-class": {
+          "type": "fixed-length-unsigned-integer",
+          "length": 32,
+          "byte-order": "little-endian"
+        }
+      }
+    ]
+  }
+}
+
+{
+  "type": "event-record-class",
+  "id": 0,
+  "name": "begin",
+  "payload-field-class": {
+    "type": "structure",
+    "member-classes": [
+      {
+        "name": "name",
+        "field-class": {
+          "type": "null-terminated-string"
+        }
+      },
+      {
+        "name": "args",
+        "field-class": {
+          "type": "null-terminated-string"
+        }
+      }
+    ]
+  },
+  "attributes": {
+    "tarc": {
+      "type": "duration:begin",
+      "label": ["name"]
+    }
+  }
+}
+
+{
+  "type": "event-record-class",
+  "id": 1,
+  "name": "end",
+  "payload-field-class": {
+    "type": "structure",
+    "member-classes": [
+      {
+        "name": "name",
+        "field-class": {
+          "type": "null-terminated-string"
+        }
+      },
+      {
+        "name": "args",
+        "field-class": {
+          "type": "null-terminated-string"
+        }
+      }
+    ]
+  },
+  "attributes": {
+    "tarc": {
+      "type": "duration:end",
+      "label": ["name"]
+    }
+  }
+}
+
+{
+  "type": "event-record-class",
+  "id": 2,
+  "name": "instant",
+  "payload-field-class": {
+    "type": "structure",
+    "member-classes": [
+      {
+        "name": "name",
+        "field-class": {
+          "type": "null-terminated-string"
+        }
+      },
+      {
+        "name": "args",
+        "field-class": {
+          "type": "null-terminated-string"
+        }
+      }
+    ]
+  },
+  "attributes": {
+    "tarc": {
+      "type": "instant",
+      "label": ["name"]
+    }
+  }
+}
+
+{
+  "type": "event-record-class",
+  "id": 3,
+  "name": "cnt",
+  "payload-field-class": {
+    "type": "structure",
+    "member-classes": [
+      {
+        "name": "name",
+        "field-class": {
+          "type": "null-terminated-string"
+        }
+      },
+      {
+        "name": "value",
+        "field-class": {
+          "type": "variable-length-signed-integer"
+        }
+      }
+    ]
+  },
+  "attributes": {
+    "tarc": {
+      "type": "count",
+      "label": ["name"],
+      "cnt": {
+        "name": ["name"],
+        "value": ["value"]
+      }
+    }
+  }
+}
+
+{
+  "type": "event-record-class",
+  "id": 4,
+  "name": "cnts",
+  "payload-field-class": {
+    "type": "structure",
+    "member-classes": [
+      {
+        "name": "name",
+        "field-class": {
+          "type": "null-terminated-string"
+        }
+      },
+      {
+        "name": "n_args",
+        "field-class": {
+          "type": "fixed-length-unsigned-integer",
+          "length": 8,
+          "byte-order": "little-endian"
+        }
+      },
+      {
+        "name": "args",
+        "field-class": {
+          "type": "dynamic-length-array",
+          "length-field-location": {
+            "path": ["n_args"]
+          },
+          "element-field-class": {
+            "type": "structure",
+            "member-classes": [
+              {
+                "name": "name",
+                "field-class": {
+                  "type": "null-terminated-string"
+                }
+              },
+              {
+                "name": "value",
+                "field-class": {
+                  "type": "variable-length-signed-integer"
+                }
+              }
+            ]
+          }
+        }
+      }
+    ]
+  },
+  "attributes": {
+    "tarc": {
+      "type": "count",
+      "label": ["name"],
+      "cnt": {
+        "name": ["args", "name"],
+        "value": ["args", "value"]
+      }
+    }
+  }
+}

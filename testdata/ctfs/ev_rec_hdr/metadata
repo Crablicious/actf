@@ -1,0 +1,78 @@
+
+  {
+    "type": "preamble",
+    "version": 2
+  }
+  
+  {
+    "type": "clock-class",
+    "id": "dummy clock",
+    "frequency": 1333337
+  }
+  
+  {
+    "type": "data-stream-class",
+    "default-clock-class-id": "dummy clock",
+    "event-record-header-field-class": {
+      "type": "structure",
+      "member-classes": [
+        {
+          "name": "current timestamp",
+          "field-class": {
+            "type": "fixed-length-unsigned-integer",
+            "length": 32,
+            "byte-order": "little-endian",
+            "roles": ["default-clock-timestamp"]
+          }
+        },
+        {
+          "name": "my event record class id",
+          "field-class": {
+            "type": "fixed-length-unsigned-integer",
+            "length": 8,
+            "byte-order": "little-endian",
+            "roles": ["event-record-class-id"]
+          }
+        }
+      ]
+    }
+
+  }
+  
+  {
+    "type": "event-record-class",
+    "id": 5,
+    "payload-field-class": {
+      "type": "structure",
+      "member-classes": [
+        {
+          "name": "ID 5 32-bit lil endian",
+          "field-class": {
+            "type": "fixed-length-unsigned-integer",
+            "length": 32,
+            "byte-order": "little-endian",
+            "preferred-display-base": 16
+          }
+        }
+      ]
+    }
+  }
+  
+  {
+    "type": "event-record-class",
+    "id": 8,
+    "payload-field-class": {
+      "type": "structure",
+      "member-classes": [
+        {
+          "name": "ID8 8-bit lil endian",
+          "field-class": {
+            "type": "fixed-length-unsigned-integer",
+            "length": 8,
+            "byte-order": "little-endian",
+            "preferred-display-base": 16
+          }
+        }
+      ]
+    }
+  }

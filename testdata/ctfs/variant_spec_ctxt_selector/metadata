@@ -1,0 +1,69 @@
+
+  {
+    "type": "preamble",
+    "version": 2
+  }
+  
+  {
+    "type": "data-stream-class"
+  }
+  
+  {
+    "type": "event-record-class",
+    "specific-context-field-class": {
+      "type": "structure",
+      "member-classes": [
+        {
+          "name": "inner-struct",
+          "field-class": {
+            "type": "structure",
+            "member-classes": [
+              {
+                "name": "8-bit selector",
+                "field-class": {
+                  "type": "fixed-length-unsigned-integer",
+                  "length": 8,
+                  "byte-order": "little-endian"
+                }
+              }
+            ]
+          }
+        }
+      ]
+    },
+    "payload-field-class": {
+      "type": "structure",
+      "member-classes": [
+        {
+          "name": "my variant",
+          "field-class": {
+            "type": "variant",
+            "selector-field-location": {
+              "origin": "event-record-specific-context",
+              "path": ["inner-struct", null, "inner-struct", "8-bit selector"]
+            },
+            "options": [
+              {
+                "selector-field-ranges": [[0, 10]],
+                "field-class": {
+                  "type": "fixed-length-signed-integer",
+                  "length": 8,
+                  "byte-order": "little-endian",
+                  "preferred-display-base": 16
+                }
+              },
+              {
+                "selector-field-ranges": [[11, 20]],
+                "field-class": {
+                  "type": "fixed-length-unsigned-integer",
+                  "length": 32,
+                  "byte-order": "little-endian",
+                  "preferred-display-base": 16
+                }
+              }
+            ]
+          }
+        }
+      ]
+    }
+  }

@@ -1,0 +1,97 @@
+
+  {
+    "type": "preamble",
+    "version": 2
+  }
+  
+  {
+    "type": "trace-class",
+  }
+  
+  {
+    "type": "clock-class",
+    "id": "dummy clock",
+    "frequency": 1333337
+  }
+  
+  {
+    "type": "data-stream-class",
+    "default-clock-class-id": "dummy clock",
+    "packet-context-field-class": {
+      "type": "structure",
+      "member-classes": [
+        {
+          "name": "the packet begin timestamp!",
+          "field-class": {
+            "type": "fixed-length-unsigned-integer",
+            "length": 64,
+            "byte-order": "little-endian",
+            "roles": ["default-clock-timestamp"]
+          }
+        },
+        {
+          "name": "the discarded event counter",
+          "field-class": {
+            "type": "fixed-length-unsigned-integer",
+            "length": 8,
+            "byte-order": "little-endian",
+            "roles": ["discarded-event-record-counter-snapshot"]
+          }
+        },
+        {
+          "name": "the packet content length",
+          "field-class": {
+            "type": "fixed-length-unsigned-integer",
+            "length": 32,
+            "byte-order": "little-endian",
+            "roles": ["packet-content-length"]
+          }
+        },
+        {
+          "name": "the packet end timestamp",
+          "field-class": {
+            "type": "fixed-length-unsigned-integer",
+            "length": 64,
+            "byte-order": "little-endian",
+            "roles": ["packet-end-default-clock-timestamp"]
+          }
+        },
+        {
+          "name": "the packet sequence number",
+          "field-class": {
+            "type": "fixed-length-unsigned-integer",
+            "length": 8,
+            "byte-order": "little-endian",
+            "roles": ["packet-sequence-number"]
+          }
+        },
+        {
+          "name": "the packet total length",
+          "field-class": {
+            "type": "fixed-length-unsigned-integer",
+            "length": 32,
+            "byte-order": "little-endian",
+            "roles": ["packet-total-length"]
+          }
+        }
+      ]
+    }
+  }
+  
+  {
+    "type": "event-record-class",
+    "payload-field-class": {
+      "type": "structure",
+      "member-classes": [
+        {
+          "name": "32-bit lil endian",
+          "field-class": {
+            "type": "fixed-length-unsigned-integer",
+            "length": 32,
+            "byte-order": "little-endian",
+            "preferred-display-base": 16
+          }
+        }
+      ]
+    }
+  }

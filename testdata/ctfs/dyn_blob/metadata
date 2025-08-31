@@ -1,0 +1,55 @@
+
+  {
+    "type": "preamble",
+    "version": 2
+  }
+  
+  {
+    "type": "data-stream-class"
+  }
+  
+  {
+    "type": "event-record-class",
+    "name": "dynamic length blob",
+    "uid": "bl0b",
+    "payload-field-class": {
+      "type": "structure",
+      "member-classes": [
+        {
+          "name": "first blob len",
+          "field-class": {
+            "type": "fixed-length-unsigned-integer",
+            "length": 32,
+            "byte-order": "little-endian"
+          }
+        },
+        {
+          "name": "You can fly string",
+          "field-class": {
+            "type": "dynamic-length-blob",
+            "length-field-location": {
+              "path": ["first blob len"]
+            },
+          }
+        },
+        {
+          "name": "second blob len",
+          "field-class": {
+            "type": "fixed-length-unsigned-integer",
+            "length": 32,
+            "byte-order": "little-endian"
+          }
+        },
+        {
+          "name": "Zero len blob",
+          "field-class": {
+            "type": "dynamic-length-blob",
+            "length-field-location": {
+              "path": ["second blob len"]
+            },
+            "media-type": "image/png"
+          }
+        }
+      ]
+    }
+  }

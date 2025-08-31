@@ -1,0 +1,76 @@
+
+  {
+    "type": "preamble",
+    "version": 2,
+    "uuid": [
+      229, 62, 10, 184, 80, 161, 79, 10,
+      183, 16, 181, 240, 187, 169, 196, 172
+    ]
+  }
+  
+  {
+    "type": "trace-class",
+    "packet-header-field-class": {
+      "type": "structure",
+      "member-classes": [
+        {
+          "name": "the magic!",
+          "field-class": {
+            "type": "fixed-length-unsigned-integer",
+            "length": 32,
+            "byte-order": "little-endian",
+            "roles": ["packet-magic-number"]
+          }
+        },
+        {
+          "name": "data stream uuid",
+          "field-class": {
+            "type": "static-length-blob",
+            "length": 16,
+            "roles": ["metadata-stream-uuid"]
+          }
+        },
+        {
+          "name": "my data stream class ID",
+          "field-class": {
+            "type": "fixed-length-unsigned-integer",
+            "length": 8,
+            "byte-order": "little-endian",
+            "roles": ["data-stream-class-id"]
+          }
+        },
+        {
+          "name": "my data stream ID",
+          "field-class": {
+            "type": "fixed-length-unsigned-integer",
+            "length": 8,
+            "byte-order": "little-endian",
+            "roles": ["data-stream-id"]
+          }
+        }
+      ]
+    }
+  }
+  
+  {
+    "type": "data-stream-class",
+    "id": 13
+  }
+  
+  {
+    "type": "event-record-class",
+    "data-stream-class-id": 13,
+    "payload-field-class": {
+      "type": "structure",
+      "member-classes": [
+        {
+          "name": "32-bit lil endian",
+          "field-class": {
+            "type": "fixed-length-unsigned-integer",
+            "length": 32,
+            "byte-order": "little-endian"
+          }
+        }
+      ]
+    }
+  }

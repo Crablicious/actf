@@ -1,0 +1,2 @@
+{ event-payload: { 5-bit lil endian: 30, 3-bit lil endian: 7, 8-bit lil endian: 202, 8-bit big endian: 55, 3-bit big endian: 0, 5-bit big endian: 19 } }
+{ event-payload: { 5-bit lil endian: 19, 3-bit lil endian: 0, 8-bit lil endian: 55, 8-bit big endian: 202, 3-bit big endian: 7, 5-bit big endian: 30 } }

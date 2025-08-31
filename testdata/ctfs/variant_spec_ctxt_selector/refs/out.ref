@@ -1,0 +1,2 @@
+{ event-specific-context: { inner-struct: { 8-bit selector: 5 } }, event-payload: { my variant: -0x5 } }
+{ event-specific-context: { inner-struct: { 8-bit selector: 20 } }, event-payload: { my variant: 0xdeadbeef } }

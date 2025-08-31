@@ -1,0 +1,42 @@
+
+  {
+    "type": "preamble",
+    "version": 2
+  }
+  
+  {
+    "type": "data-stream-class"
+  }
+  
+  {
+    "type": "event-record-class",
+    "name": "null-terminated strings",
+    "payload-field-class": {
+      "type": "structure",
+      "member-classes": [
+        {
+          "name": "I love sushi in Japanese",
+          "field-class": {
+            "type": "null-terminated-string",
+            "encoding": "utf-32be",
+          }
+        },
+        {
+          "name": "32-bit lil endian",
+          "field-class": {
+            "type": "fixed-length-unsigned-integer",
+            "length": 32,
+            "byte-order": "little-endian",
+            "preferred-display-base": 16
+          }
+        },
+        {
+          "name": "I love sushi in Japanese",
+          "field-class": {
+            "type": "null-terminated-string",
+            "encoding": "utf-32le",
+          }
+        }
+      ]
+    }
+  }

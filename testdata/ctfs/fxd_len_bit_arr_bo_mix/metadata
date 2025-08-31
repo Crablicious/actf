@@ -1,0 +1,66 @@
+
+  {
+    "type": "preamble",
+    "version": 2
+  }
+  
+  {
+    "type": "data-stream-class"
+  }
+  
+  {
+    "type": "event-record-class",
+    "payload-field-class": {
+      "type": "structure",
+      "member-classes": [
+        {
+          "name": "5-bit lil endian",
+          "field-class": {
+            "type": "fixed-length-bit-array",
+            "length": 5,
+            "byte-order": "little-endian"
+          }
+        },
+        {
+          "name": "3-bit lil endian",
+          "field-class": {
+            "type": "fixed-length-bit-array",
+            "length": 3,
+            "byte-order": "little-endian"
+          }
+        },
+        {
+          "name": "8-bit lil endian",
+          "field-class": {
+            "type": "fixed-length-bit-array",
+            "length": 8,
+            "byte-order": "little-endian"
+          }
+        },
+        {
+          "name": "8-bit big endian",
+          "field-class": {
+            "type": "fixed-length-bit-array",
+            "length": 8,
+            "byte-order": "big-endian"
+          }
+        },
+        {
+          "name": "3-bit big endian",
+          "field-class": {
+            "type": "fixed-length-bit-array",
+            "length": 3,
+            "byte-order": "big-endian"
+          }
+        },
+        {
+          "name": "5-bit big endian",
+          "field-class": {
+            "type": "fixed-length-bit-array",
+            "length": 5,
+            "byte-order": "big-endian"
+          }
+        }
+      ]
+    }
+  }

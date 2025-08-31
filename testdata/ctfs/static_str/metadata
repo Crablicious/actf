@@ -1,0 +1,33 @@
+
+  {
+    "type": "preamble",
+    "version": 2
+  }
+  
+  {
+    "type": "data-stream-class"
+  }
+  
+  {
+    "type": "event-record-class",
+    "name": "static length strings",
+    "payload-field-class": {
+      "type": "structure",
+      "member-classes": [
+        {
+          "name": "You can fly string",
+          "field-class": {
+            "type": "static-length-string",
+            "length": 39
+          }
+        },
+        {
+          "name": "Zero len str",
+          "field-class": {
+            "type": "static-length-string",
+            "length": 0
+          }
+        }
+      ]
+    }
+  }

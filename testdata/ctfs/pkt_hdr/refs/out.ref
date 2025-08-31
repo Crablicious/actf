@@ -1,0 +1,2 @@
+{ packet-header: { the magic!: 3254525889, data stream uuid: e53e0ab850a14f0ab710b5f0bba9c4ac, my data stream class ID: 13, my data stream ID: 4 }, event-payload: { 32-bit lil endian: 0xdeadbeef } }
+{ packet-header: { the magic!: 3254525889, data stream uuid: e53e0ab850a14f0ab710b5f0bba9c4ac, my data stream class ID: 13, my data stream ID: 4 }, event-payload: { 32-bit lil endian: 0xcafebabe } }

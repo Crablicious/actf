@@ -1,0 +1,2 @@
+{ event-payload: { 32-bit lil endian: 0xdeadbeef, 32-bit big endian: -0x21524111 } }
+{ event-payload: { 32-bit lil endian: 0x1337cafe, 32-bit big endian: 0x1337cafe } }

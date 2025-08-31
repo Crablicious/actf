@@ -1,0 +1,95 @@
+# Legacy standalone Makefile. Not maintained.
+
+MAKEFLAGS	= -j17
+
+CC	= gcc
+
+CFLAGS	= --std=c99 -Wall -Wpedantic -Wextra -Wvla -Wundef -Wshadow \
+	-Wincompatible-pointer-types -Wformat-signedness -pipe
+CFLAGS	+= `pkg-config --cflags json-c`
+ifeq ($(OPT),1)
+	CFLAGS	+= -O3 -DNDEBUG -flto=auto  #  -D_FORTIFY_SOURCE=2 ?
+	CFLAGS	+= -g -fno-omit-frame-pointer -mno-omit-leaf-frame-pointer
+else
+	CFLAGS	+= -g -fsanitize=address,undefined
+endif
+
+LDFLAGS	+= `pkg-config --libs json-c`
+
+export CC
+export CFLAGS
+
+# Note: When rewriting with autotools make sure to use AC_C_BIGENDIAN
+# such that the following define gets populated
+# (https://www.gnu.org/savannah-checkouts/gnu/autoconf/manual/autoconf-2.71/autoconf.html#index-AC_005fC_005fBIGENDIAN-1):
+# WORDS_BIGENDIAN
+
+OBJS	= creader.o cevent.o breader.o metadata.o map.o fld_cls.o fld_loc.o \
+	fld_val.o fld_val_region.o json_utils.o rng.o bit_map.o
+
+.PHONY: all
+all: a.out
+
+# If I want this to be done automagically, I should use autotools.
+metadata.o: metadata.h fld_cls.h json_utils.h frags.h ds_cls_vec.h
+breader.o: breader.h common.h
+cevent.o: cevent.h cevent_int.h fld_val.h
+creader.o: creader.h cevent.h cevent_int.h breader.h common.h fld_val.h fld_val_region.h fld_cls.h fld_cls_parse.h metadata.h
+main.o: creader.h metadata.h
+map.o: map.h rng.h
+fld_cls.o: fld_cls.h fld_loc.h fld_cls_parse.h json_utils.h common.h
+fld_loc.o: fld_loc.h
+fld_val.o: fld_val.h
+fld_val_region.o: fld_val_region.h fld_val.h
+json_utils.o: json_utils.h rng.h fld_loc.h
+rng.o: rng.h
+bit_map.o: bit_map.h
+
+libcreader.a: $(OBJS)
+	$(AR) $(ARFLAGS) $@ $^
+
+crust/libcrust.a:
+	$(MAKE) -C crust
+
+a.out: main.o libcreader.a crust/libcrust.a
+	$(CC) $(CFLAGS) -o $@ $^ $(LDFLAGS)
+
+test_metadata.o: test_metadata.h metadata.h
+test_breader.o: test_breader.h breader.h
+test_creader.o: test_creader.h creader.h cevent.h metadata.h frags.h
+test_fld_val_region.o: test_fld_val_region.h
+test_rng.o: test_rng.h rng.h
+tests.o: test_metadata.h test_breader.h test_creader.h
+
+tests.out: tests.o test_breader.o test_creader.o test_metadata.o test_fld_val_region.o \
+	   test_rng.o libcreader.a crust/libcrust.a
+	$(CC) $(CFLAGS) -o $@ $^ $(LDFLAGS) `pkg-config --cflags --libs cunit`
+
+.PHONY: run
+run: a.out
+	./a.out example_metadata/minimal_preamble.json
+	./a.out example_metadata/json-frag-example.json
+
+.PHONY: tests
+test: tests.out
+	./tests.out
+
+.PHONY: sanity
+sanity:
+	./runtests.sh
+
+.PHONY: opt
+opt:
+	./runopt.sh
+
+.PHONY: runopt
+runopt: opt
+
+.PHONY: tags
+tags:
+	ctags -e -R .
+
+.PHONY: clean
+clean:
+	$(RM) *.o a.out tests.out libcreader.a
+	make -C crust $@

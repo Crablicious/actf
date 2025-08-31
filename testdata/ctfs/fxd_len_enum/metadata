@@ -1,0 +1,44 @@
+
+  {
+    "type": "preamble",
+    "version": 2
+  }
+  
+  {
+    "type": "data-stream-class"
+  }
+  
+  {
+    "type": "event-record-class",
+    "payload-field-class": {
+      "type": "structure",
+      "member-classes": [
+        {
+          "name": "32-bit lil endian",
+          "field-class": {
+            "type": "fixed-length-unsigned-integer",
+            "length": 32,
+            "byte-order": "little-endian",
+            "mappings": {
+              "first-unsigned-one": [[10, 20], [322423551, 3735928559]],
+              "second-unsigned-one": [[322423550, 322423550]]
+            },
+            "preferred-display-base": 16
+          }
+        },
+        {
+          "name": "32-bit big endian",
+          "field-class": {
+            "type": "fixed-length-signed-integer",
+            "length": 32,
+            "byte-order": "big-endian",
+            "mappings": {
+              "second-signed-one": [[-10, 322423550]],
+              "first-signed-one": [[-559038737, 322423549]]
+            },
+            "preferred-display-base": 16
+          }
+        }
+      ]
+    }
+  }

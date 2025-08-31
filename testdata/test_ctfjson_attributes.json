@@ -1,0 +1,7 @@
+{
+  "my.tracer": {
+    "max-count": 45,
+    "module": "sys"
+  },
+  "abc/xyz": true
+}

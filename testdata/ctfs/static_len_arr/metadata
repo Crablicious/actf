@@ -1,0 +1,32 @@
+
+  {
+    "type": "preamble",
+    "version": 2
+  }
+  
+  {
+    "type": "data-stream-class"
+  }
+  
+  {
+    "type": "event-record-class",
+    "name": "32-element static array",
+    "payload-field-class": {
+      "type": "structure",
+      "member-classes": [
+        {
+          "name": "my array",
+          "field-class": {
+            "type": "static-length-array",
+            "length": 32,
+            "minimum-alignment": 32,
+            "element-field-class": {
+              "type": "fixed-length-boolean",
+              "length": 1,
+              "byte-order": "little-endian"
+            }
+          }
+        }
+      ]
+    }
+  }

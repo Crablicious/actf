@@ -1,0 +1,1 @@
+doublearr: { event-payload: { fld: { fldarr: [[{ bar_len: 0, bar_arr: [] }, { bar_len: 1, bar_arr: [0] }, { bar_len: 2, bar_arr: [0, 1] }], [{ bar_len: 0, bar_arr: [] }, { bar_len: 1, bar_arr: [0] }, { bar_len: 2, bar_arr: [0, 1] }]] } } }

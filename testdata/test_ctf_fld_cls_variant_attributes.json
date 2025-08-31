@@ -1,0 +1,35 @@
+{
+  "type": "variant",
+  "selector-field-location": {
+    "origin": "event-record-payload",
+    "path": ["sel"]
+  },
+  "options": [
+    {
+      "name": "juice",
+      "field-class": {
+        "type": "variable-length-signed-integer",
+        "preferred-display-base": 16
+      },
+      "selector-field-ranges": [[-4, 4], [9, 9], [100, 200]],
+      "attributes": {
+        "my.tracer": {
+          "uuid": [
+            243, 97, 0, 184, 236, 54, 72, 97,
+            141, 107, 169, 214, 171, 137, 115, 201
+          ],
+          "is-did": true
+        }
+      }
+    },
+    {
+      "selector-field-ranges": [[8, 8]],
+      "field-class": {
+        "type": "fixed-length-signed-integer",
+        "length": 16,
+        "byte-order": "little-endian",
+        "preferred-display-base": 8
+      }
+    }
+  ]
+}

@@ -1,0 +1,10 @@
+{
+  "type": "fixed-length-signed-integer",
+  "length": 16,
+  "byte-order": "little-endian",
+  "attributes": {
+    "my.tracer": {
+      "is-nice": true
+    }
+  }
+}

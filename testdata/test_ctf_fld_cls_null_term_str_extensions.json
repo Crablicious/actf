@@ -1,0 +1,18 @@
+{
+  "type": "static-length-string",
+  "length": 0,
+  "extensions": {
+    "my.tracer": {
+      "piano": {
+        "keys": 88,
+        "temperament": "equal"
+      },
+      "ramen": 23
+    },
+    "abc/xyz": {
+      "sax": {
+        "variant": "alto"
+      }
+    }
+  }
+}
