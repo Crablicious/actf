@@ -39,16 +39,16 @@ typedef struct actf_freader actf_freader;
 /** The configuration of a CTF2 FS reader. It can be initialized to
  * zero to get the default values. */
 struct actf_freader_cfg {
-    /** The name of the metadata file located at
-     * `path`/`metadata_filename`. If metadata_filename is NULL, the
-     * default value is "metadata". */
-    const char *metadata_filename;
-    /** The number of events used in the buffer for each data stream
-     * file. If zero, the default value is ACTF_DEFAULT_EVS_CAP. */
-    size_t dstream_evs_cap;
-    /** The number of events used in the buffer for the muxer. If
-     * zero, the default value is ACTF_DEFAULT_EVS_CAP. */
-    size_t muxer_evs_cap;
+	/** The name of the metadata file located at
+	 * `path`/`metadata_filename`. If metadata_filename is NULL, the
+	 * default value is "metadata". */
+	const char *metadata_filename;
+	/** The number of events used in the buffer for each data stream
+	 * file. If zero, the default value is ACTF_DEFAULT_EVS_CAP. */
+	size_t dstream_evs_cap;
+	/** The number of events used in the buffer for the muxer. If
+	 * zero, the default value is ACTF_DEFAULT_EVS_CAP. */
+	size_t muxer_evs_cap;
 };
 
 /**

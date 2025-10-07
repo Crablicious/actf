@@ -35,37 +35,37 @@
 
 int main(void)
 {
-    /* initialize the CUnit test registry */
-    if (CUE_SUCCESS != CU_initialize_registry())
-        return CU_get_error();
+	/* initialize the CUnit test registry */
+	if (CUE_SUCCESS != CU_initialize_registry())
+		return CU_get_error();
 
-    CU_SuiteInfo suites[] = {
-	test_metadata_suite,
-	test_breader_suite,
-	test_filter_suite,
-	test_decoder_suite,
-	test_fld_cls_suite,
-	test_freader_suite,
-	test_ctfjson_suite,
-	test_rng_suite,
-	test_error_suite,
-	test_prio_queue_suite,
-	CU_SUITE_INFO_NULL,
-    };
+	CU_SuiteInfo suites[] = {
+		test_metadata_suite,
+		test_breader_suite,
+		test_filter_suite,
+		test_decoder_suite,
+		test_fld_cls_suite,
+		test_freader_suite,
+		test_ctfjson_suite,
+		test_rng_suite,
+		test_error_suite,
+		test_prio_queue_suite,
+		CU_SUITE_INFO_NULL,
+	};
 
-    CU_ErrorCode error = CU_register_suites(suites);
-    if (error != CUE_SUCCESS) {
+	CU_ErrorCode error = CU_register_suites(suites);
+	if (error != CUE_SUCCESS) {
+		CU_cleanup_registry();
+		return error;
+	}
+
+	/* Run all tests using the CUnit Basic interface */
+	CU_basic_set_mode(CU_BRM_VERBOSE);
+	CU_basic_run_tests();
+	unsigned n_fails = CU_get_number_of_tests_failed();
 	CU_cleanup_registry();
-	return error;
-    }
-
-    /* Run all tests using the CUnit Basic interface */
-    CU_basic_set_mode(CU_BRM_VERBOSE);
-    CU_basic_run_tests();
-    unsigned n_fails = CU_get_number_of_tests_failed();
-    CU_cleanup_registry();
-    if (CU_get_error() != CUE_SUCCESS) {
-	fprintf(stderr, "Cunit framework error after cleanup: %s\n", CU_get_error_msg());
-    }
-    return n_fails;
+	if (CU_get_error() != CUE_SUCCESS) {
+		fprintf(stderr, "Cunit framework error after cleanup: %s\n", CU_get_error_msg());
+	}
+	return n_fails;
 }

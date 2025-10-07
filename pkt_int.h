@@ -27,8 +27,8 @@
 
 
 struct actf_pkt {
-    struct pkt_state *pkt_s;
-    struct actf_fld props[ACTF_PKT_N_PROPS];
+	struct pkt_state *pkt_s;
+	struct actf_fld props[ACTF_PKT_N_PROPS];
 };
 
 

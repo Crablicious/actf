@@ -91,14 +91,14 @@ typedef const char *(*actf_last_error)(void *self);
 
 /** An event generator */
 struct actf_event_generator {
-    /** See actf_event_generate() */
-    actf_event_generate generate;
-    /** See actf_seek_ns_from_origin() */
-    actf_seek_ns_from_origin seek_ns_from_origin;
-    /** See actf_last_error() */
-    actf_last_error last_error;
-    /** Opaque data, should be passed to the generator methods. */
-    void *self;
+	/** See actf_event_generate() */
+	actf_event_generate generate;
+	/** See actf_seek_ns_from_origin() */
+	actf_seek_ns_from_origin seek_ns_from_origin;
+	/** See actf_last_error() */
+	actf_last_error last_error;
+	/** Opaque data, should be passed to the generator methods. */
+	void *self;
 };
 
 /**

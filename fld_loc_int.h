@@ -26,9 +26,9 @@
 
 
 struct actf_fld_loc {
-    enum actf_fld_loc_origin origin;
-    char **path;
-    size_t path_len;
+	enum actf_fld_loc_origin origin;
+	char **path;
+	size_t path_len;
 };
 
 const char *actf_fld_loc_origin_name(enum actf_fld_loc_origin origin);

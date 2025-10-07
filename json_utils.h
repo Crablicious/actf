@@ -92,7 +92,7 @@ int json_object_key_get_gtz_uint64(const struct json_object *jobj, const char *k
  * was an error parsing an existing key.
  */
 int json_object_key_get_gtez_uint64(const struct json_object *jobj, const char *key,
-				   uint64_t *val, struct error *e);
+				    uint64_t *val, struct error *e);
 
 /* Retrieves the int64_t in `key`. Returns ACTF_OK on success,
  * ACTF_NOT_FOUND if `key` does not exist and ACTF_JSON_ERROR if there
@@ -120,8 +120,7 @@ int json_object_key_get_rng_set(const struct json_object *jobj, const char *key,
  * `mappings_free`.
  */
 int json_object_key_get_mappings(const struct json_object *jobj, const char *key,
-				 enum rng_type sign, struct mappings *maps,
-				 struct error *e);
+				 enum rng_type sign, struct mappings *maps, struct error *e);
 
 /* Retrives the field-location in `key`. Returns ACTF_OK on success,
  * ACTF_NOT_FOUND if `key` does not exist and ACTF_JSON_ERROR if there

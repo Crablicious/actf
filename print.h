@@ -36,30 +36,30 @@ typedef struct actf_printer actf_printer;
 
 /** Printer flags */
 enum actf_printer_flags {
-    /** Print packet header */
-    ACTF_PRINT_PKT_HEADER = (1 << 0),
-    /** Print packet context */
-    ACTF_PRINT_PKT_CTX = (1 << 1),
-    /** Print event header */
-    ACTF_PRINT_EVENT_HEADER = (1 << 2),
-    /** Print event common context */
-    ACTF_PRINT_EVENT_COMMON_CTX = (1 << 3),
-    /** Print event specific context */
-    ACTF_PRINT_EVENT_SPECIFIC_CTX = (1 << 4),
-    /** Print event payload */
-    ACTF_PRINT_EVENT_PAYLOAD = (1 << 5),
-    /** Print property labels of packets and events */
-    ACTF_PRINT_PROP_LABELS = (1 << 6),
-    /** Print a timestamp delta for events */
-    ACTF_PRINT_TSTAMP_DELTA = (1 << 7),
-    /** Print the timestamp in cycles */
-    ACTF_PRINT_TSTAMP_CC = (1 << 8),
-    /** Print the timestamp in UTC (default is localtime) */
-    ACTF_PRINT_TSTAMP_UTC = (1 << 9),
-    /** Print the full date with the timestamp */
-    ACTF_PRINT_TSTAMP_DATE = (1 << 10),
-    /** Print the timestamp in seconds.nanoseconds */
-    ACTF_PRINT_TSTAMP_SEC = (1 << 11),
+	/** Print packet header */
+	ACTF_PRINT_PKT_HEADER = (1 << 0),
+	/** Print packet context */
+	ACTF_PRINT_PKT_CTX = (1 << 1),
+	/** Print event header */
+	ACTF_PRINT_EVENT_HEADER = (1 << 2),
+	/** Print event common context */
+	ACTF_PRINT_EVENT_COMMON_CTX = (1 << 3),
+	/** Print event specific context */
+	ACTF_PRINT_EVENT_SPECIFIC_CTX = (1 << 4),
+	/** Print event payload */
+	ACTF_PRINT_EVENT_PAYLOAD = (1 << 5),
+	/** Print property labels of packets and events */
+	ACTF_PRINT_PROP_LABELS = (1 << 6),
+	/** Print a timestamp delta for events */
+	ACTF_PRINT_TSTAMP_DELTA = (1 << 7),
+	/** Print the timestamp in cycles */
+	ACTF_PRINT_TSTAMP_CC = (1 << 8),
+	/** Print the timestamp in UTC (default is localtime) */
+	ACTF_PRINT_TSTAMP_UTC = (1 << 9),
+	/** Print the full date with the timestamp */
+	ACTF_PRINT_TSTAMP_DATE = (1 << 10),
+	/** Print the timestamp in seconds.nanoseconds */
+	ACTF_PRINT_TSTAMP_SEC = (1 << 11),
 };
 
 /** Print all packet and event properties */

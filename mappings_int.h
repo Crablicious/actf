@@ -28,27 +28,27 @@
 
 
 struct umappings {
-    /* Contains an array of `len` elements, each of which corresponds
-     * to a range-set. Each range-set has a name in the same index in
-     * `names`. */
-    struct urng_set *rng_sets;
-    char **names;
-    size_t len;
+	/* Contains an array of `len` elements, each of which corresponds
+	 * to a range-set. Each range-set has a name in the same index in
+	 * `names`. */
+	struct urng_set *rng_sets;
+	char **names;
+	size_t len;
 };
 
 struct smappings {
-    /* See actf_umappings */
-    struct srng_set *rng_sets;
-    char **names;
-    size_t len;
+	/* See actf_umappings */
+	struct srng_set *rng_sets;
+	char **names;
+	size_t len;
 };
 
 struct mappings {
-    enum rng_type sign;
-    union {
-        struct umappings umaps;
-        struct smappings smaps;
-    } d;
+	enum rng_type sign;
+	union {
+		struct umappings umaps;
+		struct smappings smaps;
+	} d;
 };
 
 size_t mappings_len(const struct mappings *maps);
@@ -67,28 +67,28 @@ void mappings_free(struct mappings *maps);
 
 
 struct actf_umappings {
-    // ivals for ALL mappings. Each ival has a pointer to its name in
-    // names.
-    struct uival *ivals;
-    size_t ivals_len;
-    // interval tree containing all ivals.
-    struct rb_tree ivt;
-    // names contains a name for each mapping.
-    char **names;
-    size_t names_len; // equivalent to number of mappings
+	// ivals for ALL mappings. Each ival has a pointer to its name in
+	// names.
+	struct uival *ivals;
+	size_t ivals_len;
+	// interval tree containing all ivals.
+	struct rb_tree ivt;
+	// names contains a name for each mapping.
+	char **names;
+	size_t names_len; // equivalent to number of mappings
 };
 
 struct actf_mappings {
-    enum rng_type sign;
-    union {
-	struct uival *u;
-	struct sival *s;
-    } ivals;
-    size_t ivals_len;
-    struct rb_tree ivt;
-    // names contains a name for each mapping.
-    char **names;
-    size_t names_len; // equivalent to number of mappings
+	enum rng_type sign;
+	union {
+		struct uival *u;
+		struct sival *s;
+	} ivals;
+	size_t ivals_len;
+	struct rb_tree ivt;
+	// names contains a name for each mapping.
+	char **names;
+	size_t names_len; // equivalent to number of mappings
 };
 
 /* actf_mappings_init initializes maps using raw_maps. It takes

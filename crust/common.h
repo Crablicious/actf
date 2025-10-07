@@ -50,54 +50,54 @@
 /* C99-compliant strdup. Sets errno on failure. */
 static inline char *c_strdup(const char *s)
 {
-    size_t len = strlen(s) + 1;
-    char *sdup = malloc(len);
-    if (! sdup) {
-	return NULL;
-    }
-    return memcpy(sdup, s, len);
+	size_t len = strlen(s) + 1;
+	char *sdup = malloc(len);
+	if (!sdup) {
+		return NULL;
+	}
+	return memcpy(sdup, s, len);
 }
 
 /* Compiles to a bswap with clang/gcc. */
 static inline uint64_t bswap64(uint64_t in)
 {
-    uint64_t out = 0;
-    out |= (in & 0xFF00000000000000) >> 56;
-    out |= (in & 0x00FF000000000000) >> 40;
-    out |= (in & 0x0000FF0000000000) >> 24;
-    out |= (in & 0x000000FF00000000) >> 8;
-    out |= (in & 0x00000000FF000000) << 8;
-    out |= (in & 0x0000000000FF0000) << 24;
-    out |= (in & 0x000000000000FF00) << 40;
-    out |= (in & 0x00000000000000FF) << 56;
-    return out;
+	uint64_t out = 0;
+	out |= (in & 0xFF00000000000000) >> 56;
+	out |= (in & 0x00FF000000000000) >> 40;
+	out |= (in & 0x0000FF0000000000) >> 24;
+	out |= (in & 0x000000FF00000000) >> 8;
+	out |= (in & 0x00000000FF000000) << 8;
+	out |= (in & 0x0000000000FF0000) << 24;
+	out |= (in & 0x000000000000FF00) << 40;
+	out |= (in & 0x00000000000000FF) << 56;
+	return out;
 }
 
 static inline uint32_t bswap32(uint32_t in)
 {
-    uint32_t out = 0;
-    out |= (in & 0xFF000000) >> 24;
-    out |= (in & 0x00FF0000) >> 8;
-    out |= (in & 0x0000FF00) << 8;
-    out |= (in & 0x000000FF) << 24;
-    return out;
+	uint32_t out = 0;
+	out |= (in & 0xFF000000) >> 24;
+	out |= (in & 0x00FF0000) >> 8;
+	out |= (in & 0x0000FF00) << 8;
+	out |= (in & 0x000000FF) << 24;
+	return out;
 }
 
 static inline uint16_t bswap16(uint16_t in)
 {
-    uint16_t out = 0;
-    out |= (in & 0xFF00) >> 8;
-    out |= (in & 0x00FF) << 8;
-    return out;
+	uint16_t out = 0;
+	out |= (in & 0xFF00) >> 8;
+	out |= (in & 0x00FF) << 8;
+	return out;
 }
 
 static inline uint64_t sataddu64(uint64_t a, uint64_t b)
 {
-    uint64_t r = a + b;
-    if (r < b) {
-	r = UINT64_MAX;
-    }
-    return r;
+	uint64_t r = a + b;
+	if (r < b) {
+		r = UINT64_MAX;
+	}
+	return r;
 }
 
 #endif /* COMMON_H */

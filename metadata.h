@@ -66,10 +66,10 @@ typedef struct actf_event_cls actf_event_cls;
 
 /** Clock origin types */
 enum actf_clk_origin_type {
-    ACTF_CLK_ORIGIN_TYPE_NONE,
-    ACTF_CLK_ORIGIN_TYPE_UNIX_EPOCH,
-    ACTF_CLK_ORIGIN_TYPE_CUSTOM,
-    ACTF_CLK_ORIGIN_N_TYPES,
+	ACTF_CLK_ORIGIN_TYPE_NONE,
+	ACTF_CLK_ORIGIN_TYPE_UNIX_EPOCH,
+	ACTF_CLK_ORIGIN_TYPE_CUSTOM,
+	ACTF_CLK_ORIGIN_N_TYPES,
 };
 
 /*****************************************************************************/
@@ -119,8 +119,7 @@ int actf_metadata_parse(actf_metadata *metadata, const char *str);
  * @return ACTF_OK on success or an error code. On error, see
  * actf_metadata_last_error().
  */
-int actf_metadata_nparse(struct actf_metadata *metadata, const char *str,
-			 size_t len);
+int actf_metadata_nparse(struct actf_metadata *metadata, const char *str, size_t len);
 
 /**
  * Get the last error message of the metadata

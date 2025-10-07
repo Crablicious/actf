@@ -30,45 +30,45 @@
 static const uint64_t PACKET_MAGIC_NUMBER = 0xc1fc1fc1;
 
 enum pkt_state_opt {
-    PKT_DISC_ER_SNAP = 1,
-    PKT_DSTREAM_CLS = 2,
-    PKT_DSTREAM_ID = 4,
-    PKT_LAST_BO = 8,
-    PKT_END_DEF_CLK_VAL = 16,
-    PKT_SEQ_NUM = 32,
+	PKT_DISC_ER_SNAP = 1,
+	PKT_DSTREAM_CLS = 2,
+	PKT_DSTREAM_ID = 4,
+	PKT_LAST_BO = 8,
+	PKT_END_DEF_CLK_VAL = 16,
+	PKT_SEQ_NUM = 32,
 };
 
 struct pkt_state {
-    uint64_t bit_off; // Bit offset to start of packet
-    uint64_t def_clk_val;
-    uint64_t begin_def_clk_val;
-    uint64_t disc_er_snap;
-    struct {
-        struct actf_dstream_cls *cls;
-        uint64_t id;
-    } dsc;
-    uint64_t ds_id;
-    enum actf_byte_order last_bo;
-    uint64_t content_len;
-    uint64_t end_def_clk_val;
-    uint64_t seq_num;
-    uint64_t tot_len;
+	uint64_t bit_off; // Bit offset to start of packet
+	uint64_t def_clk_val;
+	uint64_t begin_def_clk_val;
+	uint64_t disc_er_snap;
+	struct {
+		struct actf_dstream_cls *cls;
+		uint64_t id;
+	} dsc;
+	uint64_t ds_id;
+	enum actf_byte_order last_bo;
+	uint64_t content_len;
+	uint64_t end_def_clk_val;
+	uint64_t seq_num;
+	uint64_t tot_len;
 
-    /* OR'd existance checks for optional fields. */
-    enum pkt_state_opt opt_flags;
+	/* OR'd existance checks for optional fields. */
+	enum pkt_state_opt opt_flags;
 };
 
 
 static inline void pkt_state_init(struct pkt_state *pkt)
 {
-    pkt->bit_off = 0;
-    pkt->def_clk_val = 0;
-    pkt->begin_def_clk_val = 0;
-    pkt->dsc.id = 0;
-    pkt->dsc.cls = NULL;
-    pkt->content_len = UINT64_MAX;
-    pkt->tot_len = UINT64_MAX;
-    pkt->opt_flags = 0;
+	pkt->bit_off = 0;
+	pkt->def_clk_val = 0;
+	pkt->begin_def_clk_val = 0;
+	pkt->dsc.id = 0;
+	pkt->dsc.cls = NULL;
+	pkt->content_len = UINT64_MAX;
+	pkt->tot_len = UINT64_MAX;
+	pkt->opt_flags = 0;
 }
 
 #endif /* PKT_STATE_H */

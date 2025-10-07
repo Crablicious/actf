@@ -30,9 +30,9 @@
 
 
 struct actf_event {
-    struct event_state ev_s;
-    struct actf_pkt *pkt;
-    struct actf_fld props[ACTF_EVENT_N_PROPS];
+	struct event_state ev_s;
+	struct actf_pkt *pkt;
+	struct actf_fld props[ACTF_EVENT_N_PROPS];
 };
 
 /* Initializes an event. */

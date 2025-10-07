@@ -29,8 +29,8 @@
 #define ERROR_EMPTY (struct error) {0}
 
 struct error {
-    size_t sz;
-    char *buf;
+	size_t sz;
+	char *buf;
 };
 
 /* Initializes an error with a message buffer of size sz. */

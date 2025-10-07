@@ -93,32 +93,32 @@ typedef struct actf_fld_cls actf_fld_cls;
 
 /** Byte orders */
 enum actf_byte_order {
-    ACTF_LIL_ENDIAN,
-    ACTF_BIG_ENDIAN,
+	ACTF_LIL_ENDIAN,
+	ACTF_BIG_ENDIAN,
 };
 
 /** Bit orders */
 enum actf_bit_order {
-    ACTF_FIRST_TO_LAST,
-    ACTF_LAST_TO_FIRST,
+	ACTF_FIRST_TO_LAST,
+	ACTF_LAST_TO_FIRST,
 };
 
 /** Character encodings */
 enum actf_encoding {
-    ACTF_ENCODING_UTF8,
-    ACTF_ENCODING_UTF16BE,
-    ACTF_ENCODING_UTF16LE,
-    ACTF_ENCODING_UTF32BE,
-    ACTF_ENCODING_UTF32LE,
-    ACTF_N_ENCODINGS,
+	ACTF_ENCODING_UTF8,
+	ACTF_ENCODING_UTF16BE,
+	ACTF_ENCODING_UTF16LE,
+	ACTF_ENCODING_UTF32BE,
+	ACTF_ENCODING_UTF32LE,
+	ACTF_N_ENCODINGS,
 };
 
 /** Bases */
 enum actf_base {
-    ACTF_BASE_BINARY = 2,
-    ACTF_BASE_OCTAL = 8,
-    ACTF_BASE_DECIMAL = 10,
-    ACTF_BASE_HEXADECIMAL = 16,
+	ACTF_BASE_BINARY = 2,
+	ACTF_BASE_OCTAL = 8,
+	ACTF_BASE_DECIMAL = 10,
+	ACTF_BASE_HEXADECIMAL = 16,
 };
 
 /** Number of bytes in a UUID */
@@ -126,15 +126,15 @@ enum actf_base {
 
 /** A UUID */
 struct actf_uuid {
-    /** UUID data */
-    uint8_t d[ACTF_UUID_N_BYTES];
+	/** UUID data */
+	uint8_t d[ACTF_UUID_N_BYTES];
 };
 
 /** An iterator. Must be zero-initialized on the first call to an
  * iterator function. */
 typedef struct actf_it {
-    /** Opaque pointer */
-    void *data;
+	/** Opaque pointer */
+	void *data;
 } actf_it;
 
 #endif /* ACTF_TYPES_H */

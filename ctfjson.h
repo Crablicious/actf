@@ -39,20 +39,20 @@
 
 /* ctfjson_fld represents a JSON field */
 struct ctfjson_fld {
-    /* The field values representing the JSON values. */
-    struct actf_fld val;
-    /* Allocated strings of `val` */
-    struct str_vec strs;
-    /* Allocated fields of `val` */
-    struct actf_flds_vec ctf_flds;
+	/* The field values representing the JSON values. */
+	struct actf_fld val;
+	/* Allocated strings of `val` */
+	struct str_vec strs;
+	/* Allocated fields of `val` */
+	struct actf_flds_vec ctf_flds;
 };
 
 /* ctfjson represents JSON values */
 struct ctfjson {
-    /* fc represents a JSON schema */
-    struct actf_fld_cls fc;
-    /* jval represents the JSON values */
-    struct ctfjson_fld jval;
+	/* fc represents a JSON schema */
+	struct actf_fld_cls fc;
+	/* jval represents the JSON values */
+	struct ctfjson_fld jval;
 };
 
 /* Parses the JSON object into field classes / fields:

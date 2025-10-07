@@ -26,25 +26,25 @@
 
 struct actf_event **actf_event_arr_alloc(size_t evs_cap)
 {
-    struct actf_event *inner_evs = malloc(evs_cap * sizeof(*inner_evs));
-    if (! inner_evs) {
-	return NULL;
-    }
-    struct actf_event **evs = malloc(evs_cap * sizeof(*evs));
-    if (! evs) {
-	free(inner_evs);
-	return NULL;
-    }
-    for (size_t i = 0; i < evs_cap; i++) {
-	evs[i] = &inner_evs[i];
-    }
-    return evs;
+	struct actf_event *inner_evs = malloc(evs_cap * sizeof(*inner_evs));
+	if (!inner_evs) {
+		return NULL;
+	}
+	struct actf_event **evs = malloc(evs_cap * sizeof(*evs));
+	if (!evs) {
+		free(inner_evs);
+		return NULL;
+	}
+	for (size_t i = 0; i < evs_cap; i++) {
+		evs[i] = &inner_evs[i];
+	}
+	return evs;
 }
 
 void actf_event_arr_free(struct actf_event **evs)
 {
-    if (evs) {
-	free(evs[0]);
-	free(evs);
-    }
+	if (evs) {
+		free(evs[0]);
+		free(evs);
+	}
 }

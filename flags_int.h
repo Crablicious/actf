@@ -27,9 +27,9 @@
 
 
 struct actf_flags {
-    struct umappings maps; // The "raw" bit map ranges
-    uint64_t *masks;   // Inclusive masks for the flag ranges. Length
-		       // matching maps.len.
+	struct umappings maps;	// The "raw" bit map ranges
+	uint64_t *masks;	// Inclusive masks for the flag ranges. Length
+	// matching maps.len.
 };
 
 /* ctf flags takes ownership of the input maps */

@@ -31,36 +31,36 @@
  * optimized implementation in the future. */
 
 struct srng {
-    int64_t lower;
-    int64_t upper;  // inclusive
+	int64_t lower;
+	int64_t upper; // inclusive
 };
 
 struct urng {
-    uint64_t lower;
-    uint64_t upper;  // inclusive
+	uint64_t lower;
+	uint64_t upper; // inclusive
 };
 
 enum rng_type {
-    RNG_SINT,
-    RNG_UINT,
+	RNG_SINT,
+	RNG_UINT,
 };
 
 struct srng_set {
-    struct srng *rngs;
-    size_t len;
+	struct srng *rngs;
+	size_t len;
 };
 
 struct urng_set {
-    struct urng *rngs;
-    size_t len;
+	struct urng *rngs;
+	size_t len;
 };
 
 struct actf_rng_set {
-    enum rng_type sign;
-    union {
-	struct srng_set srs;
-	struct urng_set urs;
-    } d;
+	enum rng_type sign;
+	union {
+		struct srng_set srs;
+		struct urng_set urs;
+	} d;
 };
 
 size_t actf_rng_set_len(const struct actf_rng_set *rs);

@@ -25,60 +25,60 @@
 
 enum actf_fld_loc_origin actf_fld_loc_origin(const struct actf_fld_loc *loc)
 {
-    return loc->origin;
+	return loc->origin;
 }
 
 char **actf_fld_loc_path(const struct actf_fld_loc *loc)
 {
-    return loc->path;
+	return loc->path;
 }
 
 size_t actf_fld_loc_path_len(const struct actf_fld_loc *loc)
 {
-    return loc->path_len;
+	return loc->path_len;
 }
 
 const char *actf_fld_loc_origin_name(enum actf_fld_loc_origin origin)
 {
-    switch (origin) {
-    case ACTF_FLD_LOC_ORIGIN_NONE:
+	switch (origin) {
+	case ACTF_FLD_LOC_ORIGIN_NONE:
+		return NULL;
+	case ACTF_FLD_LOC_ORIGIN_PKT_HEADER:
+		return "packet-header";
+	case ACTF_FLD_LOC_ORIGIN_PKT_CTX:
+		return "packet-context";
+	case ACTF_FLD_LOC_ORIGIN_EVENT_HEADER:
+		return "event-record-header";
+	case ACTF_FLD_LOC_ORIGIN_EVENT_COMMON_CTX:
+		return "event-record-common-context";
+	case ACTF_FLD_LOC_ORIGIN_EVENT_SPECIFIC_CTX:
+		return "event-record-specific-context";
+	case ACTF_FLD_LOC_ORIGIN_EVENT_PAYLOAD:
+		return "event-record-payload";
+	case ACTF_FLD_LOC_N_ORIGINS:
+		return NULL;
+	}
 	return NULL;
-    case ACTF_FLD_LOC_ORIGIN_PKT_HEADER:
-	return "packet-header";
-    case ACTF_FLD_LOC_ORIGIN_PKT_CTX:
-	return "packet-context";
-    case ACTF_FLD_LOC_ORIGIN_EVENT_HEADER:
-	return "event-record-header";
-    case ACTF_FLD_LOC_ORIGIN_EVENT_COMMON_CTX:
-	return "event-record-common-context";
-    case ACTF_FLD_LOC_ORIGIN_EVENT_SPECIFIC_CTX:
-	return "event-record-specific-context";
-    case ACTF_FLD_LOC_ORIGIN_EVENT_PAYLOAD:
-	return "event-record-payload";
-    case ACTF_FLD_LOC_N_ORIGINS:
-	return NULL;
-    }
-    return NULL;
 }
 
 enum actf_fld_loc_origin actf_fld_loc_origin_name_to_type(const char *name)
 {
-    for (size_t i = 0; i < ACTF_FLD_LOC_N_ORIGINS; i++) {
-	const char *origin_name = actf_fld_loc_origin_name(i);
-	if (origin_name && strcmp(name, origin_name) == 0) {
-	    return i;
+	for (size_t i = 0; i < ACTF_FLD_LOC_N_ORIGINS; i++) {
+		const char *origin_name = actf_fld_loc_origin_name(i);
+		if (origin_name && strcmp(name, origin_name) == 0) {
+			return i;
+		}
 	}
-    }
-    return ACTF_FLD_LOC_ORIGIN_NONE;
+	return ACTF_FLD_LOC_ORIGIN_NONE;
 }
 
 void actf_fld_loc_free(struct actf_fld_loc *loc)
 {
-    if (! loc) {
-	return;
-    }
-    for (size_t i = 0; i < loc->path_len; i++) {
-	free(loc->path[i]);
-    }
-    free(loc->path);
+	if (!loc) {
+		return;
+	}
+	for (size_t i = 0; i < loc->path_len; i++) {
+		free(loc->path[i]);
+	}
+	free(loc->path);
 }

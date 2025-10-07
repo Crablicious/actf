@@ -34,9 +34,9 @@ typedef struct actf_pkt actf_pkt;
 
 /** Packet properties */
 enum actf_pkt_prop {
-    ACTF_PKT_PROP_HEADER,
-    ACTF_PKT_PROP_CTX,
-    ACTF_PKT_N_PROPS,
+	ACTF_PKT_PROP_HEADER,
+	ACTF_PKT_PROP_CTX,
+	ACTF_PKT_N_PROPS,
 };
 
 /**

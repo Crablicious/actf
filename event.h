@@ -36,11 +36,11 @@ typedef struct actf_event actf_event;
 
 /** Event properties */
 enum actf_event_prop {
-    ACTF_EVENT_PROP_HEADER,
-    ACTF_EVENT_PROP_COMMON_CTX,
-    ACTF_EVENT_PROP_SPECIFIC_CTX,
-    ACTF_EVENT_PROP_PAYLOAD,
-    ACTF_EVENT_N_PROPS,
+	ACTF_EVENT_PROP_HEADER,
+	ACTF_EVENT_PROP_COMMON_CTX,
+	ACTF_EVENT_PROP_SPECIFIC_CTX,
+	ACTF_EVENT_PROP_PAYLOAD,
+	ACTF_EVENT_N_PROPS,
 };
 
 /**
@@ -76,8 +76,7 @@ const actf_fld *actf_event_prop_fld(const actf_event *ev, const char *key,
  * @param prop the event property
  * @return the top-level field of the event property
  */
-const struct actf_fld *actf_event_prop(const struct actf_event *ev,
-				       enum actf_event_prop prop);
+const struct actf_fld *actf_event_prop(const struct actf_event *ev, enum actf_event_prop prop);
 
 /**
  * Get the timestamp of an event in cycles.

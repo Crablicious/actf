@@ -36,18 +36,18 @@ typedef struct actf_filter actf_filter;
 
 /** A time range filter */
 struct actf_filter_time_range {
-    /** The (inclusive) start time of the filter in nanoseconds from
-     * origin. */
-    int64_t begin;
-    /** Whether the start time includes a date. If no date, the date
-     * will be based on the date of the first event. */
-    bool begin_has_date;
-    /** The (inclusive) end time of the filter in nanoseconds from
-     * origin. */
-    int64_t end;
-    /** Whether the end time includes a date. If no date, the date
-     * will be based on the date of the first event. */
-    bool end_has_date;
+	/** The (inclusive) start time of the filter in nanoseconds from
+	 * origin. */
+	int64_t begin;
+	/** Whether the start time includes a date. If no date, the date
+	 * will be based on the date of the first event. */
+	bool begin_has_date;
+	/** The (inclusive) end time of the filter in nanoseconds from
+	 * origin. */
+	int64_t end;
+	/** Whether the end time includes a date. If no date, the date
+	 * will be based on the date of the first event. */
+	bool end_has_date;
 };
 
 /** A filter accepting all events from start of time to end of
@@ -62,8 +62,7 @@ struct actf_filter_time_range {
  * @return a filter or NULL with errno set. A returned filter should
  * be freed with actf_filter_free().
  */
-actf_filter *actf_filter_init(struct actf_event_generator gen,
-			      struct actf_filter_time_range range);
+actf_filter *actf_filter_init(struct actf_event_generator gen, struct actf_filter_time_range range);
 
 /** @see actf_event_generate */
 int actf_filter_filter(actf_filter *f, actf_event ***evs, size_t *evs_len);

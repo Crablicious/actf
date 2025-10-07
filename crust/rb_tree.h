@@ -25,13 +25,13 @@
 
 
 enum rb_color {
-    RB_BLACK,
-    RB_RED,
+	RB_BLACK,
+	RB_RED,
 };
 
 enum rb_dir {
-    RB_LEFT,
-    RB_RIGHT,
+	RB_LEFT,
+	RB_RIGHT,
 };
 
 /* RB_P returns the color of node. */
@@ -40,21 +40,21 @@ enum rb_dir {
 #define RB_P(node) ((struct rb_node *)((uintptr_t)((node)->p) & ~(uintptr_t)1))
 
 struct rb_node {
-    /* Children, indexed by enum rb_dir */
-    struct rb_node *c[2];
-    /* Parent, bit 0 contains the color, so accessing p should be done
-     * using the RB_P macro. */
-    struct rb_node *p;
+	/* Children, indexed by enum rb_dir */
+	struct rb_node *c[2];
+	/* Parent, bit 0 contains the color, so accessing p should be done
+	 * using the RB_P macro. */
+	struct rb_node *p;
 };
 
 struct rb_tree {
-    struct rb_node *root;
-    /* nil sentinel node, mallocd to allow rb_tree to be copied. */
-    struct rb_node *nil;
-    /* Callback that will be called every time the subtrees of x
-     * changes.
-     */
-    void (*reorder_cb)(struct rb_tree *rbt, struct rb_node *x);
+	struct rb_node *root;
+	/* nil sentinel node, mallocd to allow rb_tree to be copied. */
+	struct rb_node *nil;
+	/* Callback that will be called every time the subtrees of x
+	 * changes.
+	 */
+	void (*reorder_cb)(struct rb_tree * rbt, struct rb_node * x);
 };
 
 #define RB_EMPTY_NODE (struct rb_node){0}
@@ -68,7 +68,7 @@ struct rb_tree {
 */
 int rb_tree_init(struct rb_tree *rbt);
 void rb_tree_insert_root(struct rb_tree *rbt, struct rb_node *new,
-			 void (*reorder_cb)(struct rb_tree *rbt, struct rb_node *x));
+			 void (*reorder_cb)(struct rb_tree * rbt, struct rb_node * x));
 
 void rb_tree_insert(struct rb_tree *rbt, struct rb_node *par,
 		    struct rb_node *new, struct rb_node **side);

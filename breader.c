@@ -29,57 +29,57 @@
 #include "config.h"
 
 
-#ifndef WORDS_BIGENDIAN  // Little endian
+#ifndef WORDS_BIGENDIAN // Little endian
 #define HTOLE64(x) (x)
 #define HTOBE64(x) bswap64(x)
-#else  // Big endian
+#else // Big endian
 #define HTOLE64(x) bswap64(x)
 #define HTOBE64(x) (x)
 #endif
 
 void breader_init(void *addr, size_t len, enum actf_byte_order bo, struct breader *br)
 {
-    br->bo = bo;
-    br->start_ptr = addr;
-    br->read_ptr = addr;
-    br->end_ptr = br->read_ptr + len;
-    br->lookahead = 0;
-    br->lookahead_bit_cnt = 0;
-    br->tot_bit_cnt = 0;
+	br->bo = bo;
+	br->start_ptr = addr;
+	br->read_ptr = addr;
+	br->end_ptr = br->read_ptr + len;
+	br->lookahead = 0;
+	br->lookahead_bit_cnt = 0;
+	br->tot_bit_cnt = 0;
 
-    br->debug.ds_addr = addr;
-    br->debug.ds_len = len;
+	br->debug.ds_addr = addr;
+	br->debug.ds_len = len;
 }
 
 void breader_set_bo(struct breader *br, enum actf_byte_order bo)
 {
-    if (br->bo == bo) {
-	return;
-    }
-    br->lookahead = bswap64(br->lookahead);
-    br->bo = bo;
+	if (br->bo == bo) {
+		return;
+	}
+	br->lookahead = bswap64(br->lookahead);
+	br->bo = bo;
 }
 
 uint64_t breader_peek_le(struct breader *br, size_t cnt)
 {
-    assert(cnt <= br->lookahead_bit_cnt);
-    return br->lookahead & ((UINT64_C(1) << cnt) - 1);
+	assert(cnt <= br->lookahead_bit_cnt);
+	return br->lookahead & ((UINT64_C(1) << cnt) - 1);
 }
 
 uint64_t breader_peek_be(struct breader *br, size_t cnt)
 {
-    assert(cnt <= br->lookahead_bit_cnt);
-    return br->lookahead >> (64 - cnt);
+	assert(cnt <= br->lookahead_bit_cnt);
+	return br->lookahead >> (64 - cnt);
 }
 
 uint64_t breader_peek(struct breader *br, size_t cnt)
 {
-    assert(cnt <= br->lookahead_bit_cnt);
-    if (br->bo == ACTF_LIL_ENDIAN) {
-	return breader_peek_le(br, cnt);
-    } else {
-	return breader_peek_be(br, cnt);
-    }
+	assert(cnt <= br->lookahead_bit_cnt);
+	if (br->bo == ACTF_LIL_ENDIAN) {
+		return breader_peek_le(br, cnt);
+	} else {
+		return breader_peek_be(br, cnt);
+	}
 }
 
 #define breader_consumem(br, cnt, shft)		\
@@ -92,22 +92,22 @@ uint64_t breader_peek(struct breader *br, size_t cnt)
 
 void breader_consume_le(struct breader *br, size_t cnt)
 {
-    breader_consumem(br, cnt, >>);
+	breader_consumem(br, cnt, >>);
 }
 
 void breader_consume_be(struct breader *br, size_t cnt)
 {
-    breader_consumem(br, cnt, <<);
+	breader_consumem(br, cnt, <<);
 }
 
 void breader_consume(struct breader *br, size_t cnt)
 {
-    assert(cnt <= br->lookahead_bit_cnt);
-    if (br->bo == ACTF_LIL_ENDIAN) {
-	breader_consume_le(br, cnt);
-    } else {
-	breader_consume_be(br, cnt);
-    }
+	assert(cnt <= br->lookahead_bit_cnt);
+	if (br->bo == ACTF_LIL_ENDIAN) {
+		breader_consume_le(br, cnt);
+	} else {
+		breader_consume_be(br, cnt);
+	}
 }
 
 #define breader_consume_checkedm(br, cnt, BO)				\
@@ -142,28 +142,28 @@ void breader_consume(struct breader *br, size_t cnt)
 
 void breader_consume_checked_le(struct breader *br, size_t cnt)
 {
-    breader_consume_checkedm(br, cnt, le);
+	breader_consume_checkedm(br, cnt, le);
 }
 
 void breader_consume_checked_be(struct breader *br, size_t cnt)
 {
-    breader_consume_checkedm(br, cnt, be);
+	breader_consume_checkedm(br, cnt, be);
 }
 
 void breader_consume_checked(struct breader *br, size_t cnt)
 {
-    if (br->bo == ACTF_LIL_ENDIAN) {
-	breader_consume_checked_le(br, cnt);
-    } else {
-	breader_consume_checked_be(br, cnt);
-    }
+	if (br->bo == ACTF_LIL_ENDIAN) {
+		breader_consume_checked_le(br, cnt);
+	} else {
+		breader_consume_checked_be(br, cnt);
+	}
 }
 
 static uint64_t read_unalign_64(uint8_t *p)
 {
-    uint64_t res;
-    memcpy(&res, p, sizeof(res));
-    return res;
+	uint64_t res;
+	memcpy(&res, p, sizeof(res));
+	return res;
 }
 
 #define breader_refillm(br, shft, htobo64)				\
@@ -191,14 +191,14 @@ static uint64_t read_unalign_64(uint8_t *p)
 
 size_t breader_refill_le(struct breader *br)
 {
-    breader_refillm(br, <<, HTOLE64);
-    return br->lookahead_bit_cnt;
+	breader_refillm(br, <<, HTOLE64);
+	return br->lookahead_bit_cnt;
 }
 
 size_t breader_refill_be(struct breader *br)
 {
-    breader_refillm(br, >>, HTOBE64);
-    return br->lookahead_bit_cnt;
+	breader_refillm(br, >>, HTOBE64);
+	return br->lookahead_bit_cnt;
 }
 
 /* It looks like better code is generated when this function is split
@@ -212,16 +212,16 @@ size_t breader_refill_be(struct breader *br)
  */
 size_t breader_refill(struct breader *br)
 {
-    if (br->bo == ACTF_LIL_ENDIAN) {
-	return breader_refill_le(br);
-    } else {
-	return breader_refill_be(br);
-    }
+	if (br->bo == ACTF_LIL_ENDIAN) {
+		return breader_refill_le(br);
+	} else {
+		return breader_refill_be(br);
+	}
 }
 
 bool breader_byte_aligned(struct breader *br)
 {
-    return br->lookahead_bit_cnt % 8 == 0;
+	return br->lookahead_bit_cnt % 8 == 0;
 }
 
 #define breader_alignm(br, align, BO)					\
@@ -234,105 +234,105 @@ bool breader_byte_aligned(struct breader *br)
 
 void breader_align_le(struct breader *br, uint64_t align)
 {
-    breader_alignm(br, align, le);
+	breader_alignm(br, align, le);
 }
 
 void breader_align_be(struct breader *br, uint64_t align)
 {
-    breader_alignm(br, align, be);
+	breader_alignm(br, align, be);
 }
 
 void breader_align(struct breader *br, uint64_t align)
 {
-    if (br->bo == ACTF_LIL_ENDIAN) {
-	breader_align_le(br, align);
-    } else {
-	breader_align_be(br, align);
-    }
+	if (br->bo == ACTF_LIL_ENDIAN) {
+		breader_align_le(br, align);
+	} else {
+		breader_align_be(br, align);
+	}
 }
 
 size_t breader_bits_remaining(struct breader *br)
 {
-    return (br->end_ptr - br->read_ptr) * 8 + br->lookahead_bit_cnt;
+	return (br->end_ptr - br->read_ptr) * 8 + br->lookahead_bit_cnt;
 }
 
 bool breader_has_bits_remaining(struct breader *br)
 {
-    return br->lookahead_bit_cnt || br->read_ptr < br->end_ptr;
+	return br->lookahead_bit_cnt || br->read_ptr < br->end_ptr;
 }
 
 size_t breader_bytes_remaining(struct breader *br)
 {
-    return (br->end_ptr - br->read_ptr) + (br->lookahead_bit_cnt >> 3);
+	return (br->end_ptr - br->read_ptr) + (br->lookahead_bit_cnt >> 3);
 }
 
 uint8_t *breader_peek_bytes(struct breader *br)
 {
-    return br->read_ptr - (br->lookahead_bit_cnt >> 3);
+	return br->read_ptr - (br->lookahead_bit_cnt >> 3);
 }
 
 uint64_t breader_read_bits(struct breader *br, size_t cnt)
 {
-    assert(cnt <= MAX_READ_BITS);
-    if (br->lookahead_bit_cnt < cnt) {
-	size_t len = breader_refill(br);
-	if (len < cnt) {
-	    return UINT64_MAX;
+	assert(cnt <= MAX_READ_BITS);
+	if (br->lookahead_bit_cnt < cnt) {
+		size_t len = breader_refill(br);
+		if (len < cnt) {
+			return UINT64_MAX;
+		}
 	}
-    }
-    uint64_t res = breader_peek(br, cnt);
-    breader_consume(br, cnt);
-    return res;
+	uint64_t res = breader_peek(br, cnt);
+	breader_consume(br, cnt);
+	return res;
 }
 
 uint8_t breader_read_bit(struct breader *br)
 {
-    return breader_read_bits(br, 1);
+	return breader_read_bits(br, 1);
 }
 
 uint8_t *breader_read_bytes(struct breader *br, size_t cnt)
 {
-    assert(breader_byte_aligned(br));
-    size_t avail_bytes = breader_bytes_remaining(br);
-    if (avail_bytes < cnt) {
-	return NULL;
-    }
-    uint8_t *ptr = br->read_ptr - (br->lookahead_bit_cnt >> 3);
-    breader_consume_checked(br, cnt * 8);
-    return ptr;
+	assert(breader_byte_aligned(br));
+	size_t avail_bytes = breader_bytes_remaining(br);
+	if (avail_bytes < cnt) {
+		return NULL;
+	}
+	uint8_t *ptr = br->read_ptr - (br->lookahead_bit_cnt >> 3);
+	breader_consume_checked(br, cnt * 8);
+	return ptr;
 }
 
 void breader_seek(struct breader *br, size_t off, enum breader_seek_op whence)
 {
-    switch (whence) {
-    case BREADER_SEEK_SET:
-	if (off < (size_t)(br->end_ptr - br->start_ptr)) {
-	    br->read_ptr = br->start_ptr + off;
-	} else {
-	    br->read_ptr = br->end_ptr;
+	switch (whence) {
+	case BREADER_SEEK_SET:
+		if (off < (size_t) (br->end_ptr - br->start_ptr)) {
+			br->read_ptr = br->start_ptr + off;
+		} else {
+			br->read_ptr = br->end_ptr;
+		}
+		break;
+	case BREADER_SEEK_CUR:
+		if (off < (size_t) (br->end_ptr - br->read_ptr)) {
+			br->read_ptr += off;
+		} else {
+			br->read_ptr = br->end_ptr;
+		}
+		break;
+	case BREADER_SEEK_END:
+		br->read_ptr = br->end_ptr;
+		break;
+	default:
+		return;
 	}
-	break;
-    case BREADER_SEEK_CUR:
-	if (off < (size_t)(br->end_ptr - br->read_ptr)) {
-	    br->read_ptr += off;
-	} else {
-	    br->read_ptr = br->end_ptr;
-	}
-	break;
-    case BREADER_SEEK_END:
-	br->read_ptr = br->end_ptr;
-	break;
-    default:
-	return;
-    }
-    br->tot_bit_cnt = (br->read_ptr - br->start_ptr) * 8;
-    br->lookahead = 0;
-    br->lookahead_bit_cnt = 0;
+	br->tot_bit_cnt = (br->read_ptr - br->start_ptr) * 8;
+	br->lookahead = 0;
+	br->lookahead_bit_cnt = 0;
 }
 
 void breader_free(struct breader *br)
 {
-    if (! br) {
-	return;
-    }
+	if (!br) {
+		return;
+	}
 }

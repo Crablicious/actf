@@ -35,22 +35,22 @@
 static const size_t MAX_READ_BITS = 56;
 
 struct breader {
-    enum actf_byte_order bo;
+	enum actf_byte_order bo;
 
-    uint8_t *start_ptr;
-    uint8_t *read_ptr;
-    uint8_t *end_ptr;  // 1 after last byte
+	uint8_t *start_ptr;
+	uint8_t *read_ptr;
+	uint8_t *end_ptr; // 1 after last byte
 
-    uint64_t lookahead;
-    size_t lookahead_bit_cnt;
+	uint64_t lookahead;
+	size_t lookahead_bit_cnt;
 
-    uint64_t tot_bit_cnt;  // total bit offset from zero. used
-			   // publically currently.
+	uint64_t tot_bit_cnt; // total bit offset from zero. used
+	// publically currently.
 
-    struct {
-	uint8_t *ds_addr;
-	size_t ds_len; // bytes
-    } debug;
+	struct {
+		uint8_t *ds_addr;
+		size_t ds_len; // bytes
+	} debug;
 };
 
 /*
@@ -108,9 +108,9 @@ uint64_t breader_read_bits(struct breader *br, size_t cnt);
 uint8_t *breader_read_bytes(struct breader *br, size_t cnt);
 
 enum breader_seek_op {
-    BREADER_SEEK_SET,
-    BREADER_SEEK_CUR,
-    BREADER_SEEK_END,
+	BREADER_SEEK_SET,
+	BREADER_SEEK_CUR,
+	BREADER_SEEK_END,
 };
 /* breader_seek seeks off bytes whence. similar to lseek. */
 void breader_seek(struct breader *br, size_t off, enum breader_seek_op whence);

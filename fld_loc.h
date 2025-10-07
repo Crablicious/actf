@@ -30,7 +30,7 @@ typedef struct actf_fld_loc actf_fld_loc;
 
 /** Field location origins */
 enum actf_fld_loc_origin {
-        ACTF_FLD_LOC_ORIGIN_NONE,
+	ACTF_FLD_LOC_ORIGIN_NONE,
 	ACTF_FLD_LOC_ORIGIN_PKT_HEADER,
 	ACTF_FLD_LOC_ORIGIN_PKT_CTX,
 	ACTF_FLD_LOC_ORIGIN_EVENT_HEADER,

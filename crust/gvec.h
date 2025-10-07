@@ -28,62 +28,62 @@
 
 // could do container_of shenanigans to have private data.
 struct gvec {
-    void *data;
-    size_t len;
+	void *data;
+	size_t len;
 
-    size_t cap;
-    size_t ele_size;
+	size_t cap;
+	size_t ele_size;
 };
 
 // vec, type, index
-#define gvec_idx(v, t, i)                        \
-    ((t *)(v.data))[i]
+#define gvec_idx(v, t, i)			\
+	((t *)(v.data))[i]
 
 // vec, value
-#define gvec_push(v, val)                                \
-    do {                                                \
-        if (v.len >= v.cap) {                           \
-            gvec_resize(&v);                             \
-        }                                               \
-        ((__typeof__(val) *) v.data)[v.len++] = val;	\
-    } while (0);
+#define gvec_push(v, val)					\
+	do {							\
+		if (v.len >= v.cap) {                           \
+			gvec_resize(&v);			\
+		}                                               \
+		((__typeof__(val) *) v.data)[v.len++] = val;	\
+	} while (0);
 
 // | x | x | x | i | a | b | c |
 //   0           3
 // len = 7
 // pop_idx(v, 3) should yield:
 // | x | x | x | a | b | c |
-#define gvec_pop_idx(v, i)                                               \
-    do {                                                                \
-	size_t pop_i = i;						\
-	memmove(((char *) v.data) + i * v.ele_size, ((char *) v.data) + (i + 1) * v.ele_size, (v.len - pop_i - 1) * v.ele_size); \
-	v.len--;							\
-    } while (0)
+#define gvec_pop_idx(v, i)						\
+	do {								\
+		size_t pop_i = i;					\
+		memmove(((char *) v.data) + i * v.ele_size, ((char *) v.data) + (i + 1) * v.ele_size, (v.len - pop_i - 1) * v.ele_size); \
+		v.len--;						\
+	} while (0)
 
-#define gvec_pop(v)                                                      \
-    do {                                                                \
-        gvec_pop_idx(v, v.len - 1);                                      \
-    } while (0)
+#define gvec_pop(v)							\
+	do {								\
+		gvec_pop_idx(v, v.len - 1);				\
+	} while (0)
 
 struct gvec gvec_init(size_t cap, size_t ele_size)
 {
-    struct gvec v;
-    v.data = malloc(cap * ele_size);
-    v.len = 0;
-    v.cap = cap;
-    v.ele_size = ele_size;
-    return v;
+	struct gvec v;
+	v.data = malloc(cap * ele_size);
+	v.len = 0;
+	v.cap = cap;
+	v.ele_size = ele_size;
+	return v;
 }
 
 void gvec_resize(struct gvec *v)
 {
-    v->cap *= 2;
-    v->data = realloc(v->data, v->ele_size * v->cap);
+	v->cap *= 2;
+	v->data = realloc(v->data, v->ele_size * v->cap);
 }
 
 void gvec_free(struct gvec v)
 {
-    free(v.data);
+	free(v.data);
 }
 
 #endif /* GVEC_H */

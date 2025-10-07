@@ -27,16 +27,16 @@
 
 
 struct event_state {
-    uint64_t id;
-    struct actf_event_cls *cls;
-    uint64_t def_clk_val;
+	uint64_t id;
+	struct actf_event_cls *cls;
+	uint64_t def_clk_val;
 };
 
 static inline void event_state_init(struct event_state *ev)
 {
-    ev->id = 0;
-    ev->cls = NULL;
-    ev->def_clk_val = 0;
+	ev->id = 0;
+	ev->cls = NULL;
+	ev->def_clk_val = 0;
 }
 
 #endif /* EVENT_STATE_H */

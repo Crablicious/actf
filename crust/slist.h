@@ -29,46 +29,46 @@
  * structure. */
 
 struct slist_node {
-    struct slist_node *next;
+	struct slist_node *next;
 };
 
 struct slist {
-    struct slist_node *head;
-    size_t len;
+	struct slist_node *head;
+	size_t len;
 };
 
 static inline void slist_push(struct slist *l, struct slist_node *n)
 {
-    n->next = l->head;
-    l->head = n;
-    l->len++;
+	n->next = l->head;
+	l->head = n;
+	l->len++;
 }
 
 static inline struct slist_node *slist_pop(struct slist *l)
 {
-    if (! l->head) {
-	return NULL;
-    }
-    struct slist_node *head = l->head;
-    l->head = head->next;
-    head->next = NULL;
-    l->len--;
-    return head;
+	if (!l->head) {
+		return NULL;
+	}
+	struct slist_node *head = l->head;
+	l->head = head->next;
+	head->next = NULL;
+	l->len--;
+	return head;
 }
 
 static inline struct slist_node *slist_peek(struct slist *l)
 {
-    return l->head;
+	return l->head;
 }
 
 static inline bool slist_isempty(struct slist *l)
 {
-    return l->head == NULL;
+	return l->head == NULL;
 }
 
 static inline size_t slist_len(struct slist *l)
 {
-    return l->len;
+	return l->len;
 }
 
 /* slist_foreach loops over all entries of l. The current node is
