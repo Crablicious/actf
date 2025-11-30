@@ -1,0 +1,92 @@
+body {
+    max-width: 1280px;
+    font-size: 16px;
+    font-family: 'Dejavu Sans', monospace;
+    margin: 0 auto;
+    padding: 0 50px;
+    box-sizing: border-box;
+}
+
+.run-err { color: red; }
+
+.buttonlabel, button {
+    background-color: powderblue;
+    padding: 5px 10px;
+    border-radius: 3px;
+    border: 1px ridge black;
+    font-size: 0.8rem;
+    height: auto;
+}
+
+.buttonlabel:hover, button:hover {
+    background-color: steelblue;
+    color: white;
+}
+
+.buttonlabel:active, button:active {
+    background-color: royalblue;
+    color: white;
+}
+
+.buttonlabel:disabled, button:disabled {
+    opacity: 0.6;
+    cursor: not-allowed;
+}
+
+table {
+    border-spacing: 0;
+    border: 0px solid;
+    margin-bottom: 8px;
+}
+
+th, td {
+    border: 1px solid;
+    padding: 2px 2px;
+}
+
+th {
+    vertical-align: bottom;
+}
+
+thead > tr {
+    background-color: powderblue;
+}
+
+tbody > tr > th:first-of-type {
+    text-align: left;
+    background-color: lightsteelblue;
+}
+
+footer {
+    max-width: 100%;
+    width: 100%;
+    bottom: 0;
+    left: 0;
+    font-size: smaller;
+}
+
+nav {
+    margin-top: 3px;
+}
+
+dl {
+
+}
+
+dt {
+    font-weight: bold;
+}
+
+dt::after {
+    content: ":";
+}
+
+dd {
+
+}
+
+select {
+    display: flex;
+    height: 100%;
+    width: 100%;
+}

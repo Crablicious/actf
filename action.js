@@ -1,0 +1,7 @@
+const ACTION = {
+    GET_TRACE_INFO: 0,
+    GET_CALLSTACK_STATS: 1,
+    GET_FLAMEGRAPH: 2,
+    WRITE_FILES: 3,
+    GET_EVENT_TYPES: 4,
+};
