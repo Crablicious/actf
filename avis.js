@@ -357,9 +357,6 @@ dirInput.addEventListener(
 	// dir: <dir>
 	// The ArrayBuffers should be zero-copy transferred.
         console.log("User-provided dir:", dir);
-        try {
-            Module.FS.mkdir(dir);
-        } catch (err) {} // already created (hopefully)
 	try {
 	    await dumpFilesToFS(dir, [...event.target.files]);
 	} catch (e) {

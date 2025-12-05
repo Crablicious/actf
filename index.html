@@ -19,8 +19,11 @@
     <p>avis is a <a href="https://diamon.org/ctf/">CTF2</a> trace analyzer for file system based CTF2 traces</p>
     <p>It is written to showcase actf functionality and performance</p>
     <p>All processing of trace data is done completely in your local
-    browser, which is great for data privacy, but does limit the size
-    of the trace to somewhat less than 2 GiB</p>
+      browser, which is great for data privacy, but does limit the
+      size of the trace to somewhat less than 2 GiB</p>
+    <p>To load a CTF trace, select the folder that is a direct parent
+      of the <i>metadata file</i>; avis makes no attempt to find the
+      CTF trace or read multiple CTF traces</p>
     <div>
       <label for="dir-input" class="buttonlabel">Choose a CTF2 trace to load</label>
       <input type="file" id="dir-input" autocomplete="off" webkitdirectory>
