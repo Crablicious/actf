@@ -553,10 +553,6 @@ int json_object_key_get_mappings(const struct json_object *jobj, const char *key
 	}
 
 	int maps_len = json_object_object_length(maps_jobj);
-	if (maps_len < 1) {
-		eprintf(e, "mapping \"%s\" contains no properties", key);
-		return ACTF_INVALID_MAPPING;
-	}
 	char **names = malloc(maps_len * sizeof(*names));
 	if (!names) {
 		eprintf(e, "malloc: %s", strerror(errno));

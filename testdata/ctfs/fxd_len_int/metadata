@@ -28,7 +28,8 @@
             "type": "fixed-length-signed-integer",
             "length": 32,
             "byte-order": "big-endian",
-            "preferred-display-base": 16
+            "preferred-display-base": 16,
+            "mappings": {}
           }
         }
       ]
