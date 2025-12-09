@@ -318,7 +318,7 @@ static void fprint_uint(FILE *s, uint64_t v, enum actf_base base)
 int actf_fprint_fld(actf_printer *p, FILE *s, const actf_fld *fld)
 {
 	int rc = ACTF_OK;
-	const char *NIL = "nil";
+#define NIL "nil"
 	switch (actf_fld_type(fld)) {
 	case ACTF_FLD_TYPE_NIL:
 		fprintf(s, NIL);

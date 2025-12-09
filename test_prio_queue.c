@@ -55,7 +55,7 @@ static int cmpnode(const void *p1, const void *p2)
 	return (n1->key < n2->key) ? -1 : (int) (n1->key - n2->key);
 }
 
-static void rand_test()
+static void rand_test(void)
 {
 #define N_NODES 256
 	int rc;

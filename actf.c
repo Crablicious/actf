@@ -246,7 +246,7 @@ static int parse_tstamp_ns(const char *s, bool parse_as_utc, int64_t *ns, bool *
 		regmatch_t nsec_match = pmatch[4];	// maybe
 
 		int64_t sign = *(s + sign_match.rm_so) == '-' ? -1 : 1;
-		int64_t sec = 0, nsec;
+		int64_t sec = 0, nsec = 0;
 		if (strtoboundi64(s + sec_match.rm_so, 0, INT64_MAX, &sec) < 0) {
 			rc = ACTF_ERROR;
 			goto free_sec_regex;

@@ -1271,7 +1271,7 @@ static int read_metadata_pkt_hdr(const char *b, size_t len, struct metadata_pkt_
 	}
 	/* The byte-order of magic determines the byte-order of the rest
 	 * of the fields. */
-	if ((hdr->magic == bswap32(METADATA_PKT_HDR_MAGIC))) {
+	if (hdr->magic == bswap32(METADATA_PKT_HDR_MAGIC)) {
 		hdr->content_sz_bits = bswap32(hdr->content_sz_bits);
 		hdr->total_sz_bits = bswap32(hdr->total_sz_bits);
 		hdr->hdr_sz_bits = bswap32(hdr->hdr_sz_bits);

@@ -69,7 +69,7 @@ int rb_tree_init(struct rb_tree *rbt)
 	if (!rbt->nil) {
 		return -ENOMEM;
 	}
-	rbt->nil->p = RB_BLACK;
+	rbt->nil->p = (struct rb_node *)((uintptr_t)NULL | ~(uintptr_t)1);
 	rbt->root = rbt->nil;
 	rbt->reorder_cb = NULL;
 	return 0;
