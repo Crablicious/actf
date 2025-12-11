@@ -18,6 +18,9 @@
  * <https://www.gnu.org/licenses/>.
  */
 
+/* dsr is a data stream reader. It reads in a metadata file and uses
+ * it to decode a single data stream file. */
+
 #include <errno.h>
 #include <fcntl.h>
 #include <getopt.h>
@@ -30,10 +33,8 @@
 #include <sys/stat.h>
 #include <sys/mman.h>
 
-#include "decoder.h"
-#include "metadata.h"
-#include "event_generator.h"
-#include "print.h"
+/* Include actf, this is the only header that must be included. */
+#include <actf/actf.h>
 
 
 void print_usage(void)

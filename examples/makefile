@@ -5,7 +5,7 @@
 # in the root of actf, you can then run the following to build the
 # examples: `PKG_CONFIG_PATH=../build_dbg/install/lib/pkgconfig make`
 
-all: count philo
+all: count philo dsr
 
 count: count.c
 	$(CC) -o $@ $^ `pkg-config --static --cflags --libs actf`
@@ -13,6 +13,9 @@ count: count.c
 philo: philo.c
 	$(CC) -o $@ $^ `pkg-config --static --cflags --libs actf`
 
+dsr: dsr.c
+	$(CC) -o $@ $^ `pkg-config --static --cflags --libs actf`
+
 .PHONY: clean
 clean:
-	$(RM) count philo
+	$(RM) count philo dsr

@@ -114,8 +114,6 @@ target_include_directories(${PROJECT_NAME}
 )
 
 if(BUILD_BIN)
-  add_executable(dsr dsr.c)
-  target_link_libraries(dsr PRIVATE ${PROJECT_NAME})
   add_executable(${PROJECT_NAME}.out actf.c)
   target_link_libraries(${PROJECT_NAME}.out PRIVATE ${PROJECT_NAME})
   set_property(TARGET ${PROJECT_NAME}.out PROPERTY OUTPUT_NAME ${PROJECT_NAME})
