@@ -27,7 +27,7 @@ var fld__cls_8h =
     [ "actf_fld_cls_options_len", "fld__cls_8h.html#a411a9d8dd03b99e5cb6c8526a6841d32", null ],
     [ "actf_fld_cls_options_name_idx", "fld__cls_8h.html#af400166bd00571355448c5e71f81639b", null ],
     [ "actf_fld_cls_options_fld_cls_idx", "fld__cls_8h.html#afdf340200e746274689329e227ee9023", null ],
-    [ "actf_fld_cls_variant_options_selector_rng_set_idx", "fld__cls_8h.html#afae69bef8ddeb27e82705832d6e25dae", null ],
+    [ "actf_fld_cls_options_selector_rng_set_idx", "fld__cls_8h.html#a1d9b0e948153d5e7baf838a63cdff596", null ],
     [ "actf_fld_cls_options_attributes_idx", "fld__cls_8h.html#ab35dc2420a5f35b604382b4d2986bcc3", null ],
     [ "actf_fld_cls_options_extensions_idx", "fld__cls_8h.html#abedddf68097c07ea5cd29516b632e4c1", null ],
     [ "actf_fld_cls_aliased_name", "fld__cls_8h.html#a5ca81dc286a13691f6dc92c5f95adf2b", null ],

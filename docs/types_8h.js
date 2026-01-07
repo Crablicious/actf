@@ -18,7 +18,6 @@ var types_8h =
     [ "ACTF_INVALID_RANGE", "types_8h.html#a86b73fa3992d36cfe926d64945d7e89b", null ],
     [ "ACTF_INVALID_RANGE_SET", "types_8h.html#a588e5b62a1c7562e3af325b1cd7f221b", null ],
     [ "ACTF_INVALID_UUID", "types_8h.html#af9b58d2f5179f54da6ebdad289e9b1d5", null ],
-    [ "ACTF_INVALID_MAPPING", "types_8h.html#a5869bc0bb2a4d9e7859eaa7d56c662f1", null ],
     [ "ACTF_INVALID_FLD_LOC", "types_8h.html#aad39893728b7697635aa68ad098c8387", null ],
     [ "ACTF_INVALID_FLD_CLS", "types_8h.html#a130f69eb21243bd38779f9b5a44563df", null ],
     [ "ACTF_INVALID_FLAGS", "types_8h.html#a005bcbd86ca16a99fd562a4f1982c00d", null ],
