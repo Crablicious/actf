@@ -1753,7 +1753,14 @@ static int optional_fld_cls_parse(struct json_object *fc_jobj,
 		return rc;
 	}
 
-	optional->fld_cls = malloc(sizeof(*optional->fld_cls));	// check?
+	optional->fld_cls = malloc(sizeof(*optional->fld_cls));
+	if (! optional->fld_cls) {
+		eprintf(e, "malloc: %s", strerror(errno));
+		actf_fld_loc_free(&sel_fld_loc);
+		actf_fld_cls_free(&opt_fc);
+		actf_rng_set_free(&sel_fld_rng_set);
+		return ACTF_OOM;
+	}
 	*optional->fld_cls = opt_fc;
 	optional->sel_fld_loc = sel_fld_loc;
 	optional->sel_fld_rng_set = sel_fld_rng_set;
