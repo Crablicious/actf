@@ -1320,6 +1320,13 @@ static int read_metadata_pkt_hdr(const char *b, size_t len, struct metadata_pkt_
 	return 0;
 }
 
+struct json_tokener *new_json_tokener(void)
+{
+	struct json_tokener *tok = json_tokener_new();
+	if (tok) json_tokener_set_flags(tok, JSON_TOKENER_VALIDATE_UTF8);
+	return tok;
+}
+
 /* unpack_packetized_metadata_stream reads the packetized metadata
  * stream in b and unpacks their content from the start of b without
  * any padding. The new length of the buffer is written to len. */
@@ -1329,7 +1336,7 @@ static int unpack_packetized_metadata_stream(const char *b, size_t len,
 	int rc = 0;
 	struct error *e = &metadata->err;
 	size_t cur = 0;
-	struct json_tokener *tok = json_tokener_new();
+	struct json_tokener *tok = new_json_tokener();
 	enum json_tokener_error last_err = json_tokener_success;
 	while (cur < len) {
 		struct metadata_pkt_hdr hdr;
@@ -1418,7 +1425,7 @@ int actf_metadata_nparse(struct actf_metadata *metadata, const char *str, size_t
 	if (is_metadata_stream_packetized(str, len)) {
 		rc = unpack_packetized_metadata_stream(str, len, metadata);
 	} else {
-		struct json_tokener *tok = json_tokener_new();
+		struct json_tokener *tok = new_json_tokener();
 		rc = parse_json_frags(tok, str, len, metadata);
 		if (rc == ACTF_JSON_PARSE_ERROR) {
 			enum json_tokener_error err = json_tokener_get_error(tok);
