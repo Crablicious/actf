@@ -201,11 +201,18 @@ const struct actf_fld *actf_fld_arr_idx(const struct actf_fld *fld, size_t i)
 
 const struct actf_fld *actf_fld_struct_fld(const struct actf_fld *fld, const char *key)
 {
+	return actf_fld_struct_fldn(fld, key, strlen(key));
+}
+
+const struct actf_fld *actf_fld_struct_fldn(const struct actf_fld *fld,
+					    const char *key, size_t len)
+{
 	if (fld->type != ACTF_FLD_TYPE_STRUCT || fld->cls->type != ACTF_FLD_CLS_STRUCT) {
 		return NULL;
 	}
 	for (size_t i = 0; i < fld->cls->cls.struct_.n_members; i++) {
-		if (strcmp(fld->cls->cls.struct_.member_clses[i].name, key) == 0) {
+		const char *name = fld->cls->cls.struct_.member_clses[i].name;
+		if (strncmp(name, key, len) == 0 && name[len] == '\0') {
 			return &fld->d.struct_.vals[i];
 		}
 	}

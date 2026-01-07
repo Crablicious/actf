@@ -35,8 +35,13 @@ void actf_pkt_init(struct actf_pkt *pkt, struct pkt_state *pkt_s)
 
 const struct actf_fld *actf_pkt_fld(const struct actf_pkt *pkt, const char *key)
 {
+	return actf_pkt_fldn(pkt, key, strlen(key));
+}
+
+const actf_fld *actf_pkt_fldn(const actf_pkt *pkt, const char *key, size_t len)
+{
 	for (int i = 0; i < ACTF_PKT_N_PROPS; i++) {
-		const struct actf_fld *fld = actf_pkt_prop_fld(pkt, key, i);
+		const struct actf_fld *fld = actf_pkt_prop_fldn(pkt, key, len, i);
 		if (fld) {
 			return fld;
 		}
@@ -47,10 +52,16 @@ const struct actf_fld *actf_pkt_fld(const struct actf_pkt *pkt, const char *key)
 const struct actf_fld *actf_pkt_prop_fld(const struct actf_pkt *pkt, const char *key,
 					 enum actf_pkt_prop prop)
 {
+	return actf_pkt_prop_fldn(pkt, key, strlen(key), prop);
+}
+
+const actf_fld *actf_pkt_prop_fldn(const actf_pkt *pkt, const char *key,
+				   size_t len, enum actf_pkt_prop prop)
+{
 	switch (prop) {
 	case ACTF_PKT_PROP_HEADER:
 	case ACTF_PKT_PROP_CTX:
-		return actf_fld_struct_fld(&pkt->props[prop], key);
+		return actf_fld_struct_fldn(&pkt->props[prop], key, len);
 	case ACTF_PKT_N_PROPS:
 		return NULL;
 	}

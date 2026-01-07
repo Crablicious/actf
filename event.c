@@ -42,8 +42,14 @@ void actf_event_init(struct actf_event *ev, struct actf_pkt *pkt)
 
 const struct actf_fld *actf_event_fld(const struct actf_event *ev, const char *key)
 {
+	return actf_event_fldn(ev, key, strlen(key));
+}
+
+const struct actf_fld *actf_event_fldn(const struct actf_event *ev,
+				       const char *key, size_t len)
+{
 	for (int i = 0; i < ACTF_EVENT_N_PROPS; i++) {
-		const struct actf_fld *fld = actf_event_prop_fld(ev, key, i);
+		const struct actf_fld *fld = actf_event_prop_fldn(ev, key, len, i);
 		if (fld) {
 			return fld;
 		}
@@ -54,12 +60,18 @@ const struct actf_fld *actf_event_fld(const struct actf_event *ev, const char *k
 const struct actf_fld *actf_event_prop_fld(const struct actf_event *ev, const char *key,
 					   enum actf_event_prop prop)
 {
+	return actf_event_prop_fldn(ev, key, strlen(key), prop);
+}
+
+const struct actf_fld *actf_event_prop_fldn(const struct actf_event *ev, const char *key,
+					    size_t len, enum actf_event_prop prop)
+{
 	switch (prop) {
 	case ACTF_EVENT_PROP_HEADER:
 	case ACTF_EVENT_PROP_COMMON_CTX:
 	case ACTF_EVENT_PROP_SPECIFIC_CTX:
 	case ACTF_EVENT_PROP_PAYLOAD:
-		return actf_fld_struct_fld(&ev->props[prop], key);
+		return actf_fld_struct_fldn(&ev->props[prop], key, len);
 	case ACTF_EVENT_N_PROPS:
 		return NULL;
 	}

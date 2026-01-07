@@ -229,6 +229,9 @@ const actf_fld *actf_fld_arr_idx(const actf_fld *fld, size_t i);
  */
 const actf_fld *actf_fld_struct_fld(const actf_fld *fld, const char *key);
 
+/** Same as actf_fld_struct_fld() but with an explicit key length. */
+const actf_fld *actf_fld_struct_fldn(const actf_fld *fld, const char *key, size_t len);
+
 /**
  * Get the number of members in a struct field
  *

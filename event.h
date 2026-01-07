@@ -59,6 +59,9 @@ enum actf_event_prop {
  */
 const actf_fld *actf_event_fld(const actf_event *ev, const char *key);
 
+/** Same as actf_event_fld() but with an explicit key length. */
+const actf_fld *actf_event_fldn(const actf_event *ev, const char *key, size_t len);
+
 /**
  * Search the top-level struct of an event property for a field with
  * name key.
@@ -69,6 +72,10 @@ const actf_fld *actf_event_fld(const actf_event *ev, const char *key);
  */
 const actf_fld *actf_event_prop_fld(const actf_event *ev, const char *key,
 				    enum actf_event_prop prop);
+
+/** Same as actf_event_prop_fld() but with an explicit key length. */
+const actf_fld *actf_event_prop_fldn(const actf_event *ev, const char *key,
+				     size_t len, enum actf_event_prop prop);
 
 /**
  * Get the top-level struct of an event property

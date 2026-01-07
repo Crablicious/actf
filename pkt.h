@@ -53,6 +53,9 @@ enum actf_pkt_prop {
  */
 const actf_fld *actf_pkt_fld(const actf_pkt *pkt, const char *key);
 
+/** Same as actf_pkt_fld() but with an explicit key length. */
+const actf_fld *actf_pkt_fldn(const actf_pkt *pkt, const char *key, size_t len);
+
 /**
  * Search the top-level struct of a packet property for a field with
  * name key.
@@ -63,6 +66,10 @@ const actf_fld *actf_pkt_fld(const actf_pkt *pkt, const char *key);
  */
 const actf_fld *actf_pkt_prop_fld(const actf_pkt *pkt, const char *key,
 				  enum actf_pkt_prop prop);
+
+/** Same as actf_pkt_prop_fld() but with an explicit key length. */
+const actf_fld *actf_pkt_prop_fldn(const actf_pkt *pkt, const char *key,
+				   size_t len, enum actf_pkt_prop prop);
 
 /**
  * Get the top-level struct of a packet property
@@ -195,10 +202,10 @@ uint64_t actf_pkt_dstream_cls_id(const actf_pkt *pkt);
 const actf_dstream_cls *actf_pkt_dstream_cls(const actf_pkt *pkt);
 
 /**
- * Check if the packet has an explicit datastream class id.
+ * Check if the packet has an explicit datastream id.
  *
  * @param pkt the packet
- * @return whether the packet has an explicit datastream class id
+ * @return whether the packet has an explicit datastream id
  */
 bool actf_pkt_has_dstream_id(const actf_pkt *pkt);
 
