@@ -94,6 +94,8 @@ enum actf_fld_cls_type actf_fld_cls_type(const actf_fld_cls *fc);
  * The following field classes return length in bytes:
  * - ACTF_FLD_CLS_STATIC_LEN_BLOB
  * - ACTF_FLD_CLS_STATIC_LEN_STR
+ *
+ * The following field class returns the number of element fields:
  * - ACTF_FLD_CLS_STATIC_LEN_ARR
  *
  * Any other field class returns 0.
@@ -461,7 +463,7 @@ const actf_fld_cls *actf_fld_cls_options_fld_cls_idx(const actf_fld_cls *fc, siz
  * @param i the index
  * @return the option's selector range set
  */
-const actf_rng_set *actf_fld_cls_variant_options_selector_rng_set_idx(const actf_fld_cls *fc, size_t i);
+const actf_rng_set *actf_fld_cls_options_selector_rng_set_idx(const actf_fld_cls *fc, size_t i);
 
 /**
  * Get the attributes of the option with the specified index of the

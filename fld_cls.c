@@ -420,9 +420,8 @@ const struct actf_fld_cls *actf_fld_cls_options_fld_cls_idx(const struct actf_fl
 	}
 }
 
-const struct actf_rng_set *actf_fld_cls_variant_options_selector_rng_set_idx(const struct
-									     actf_fld_cls *fc,
-									     size_t i)
+const struct actf_rng_set *actf_fld_cls_options_selector_rng_set_idx(const struct actf_fld_cls *fc,
+								     size_t i)
 {
 	if (fc->type == ACTF_FLD_CLS_VARIANT && i < fc->cls.variant.n_opts) {
 		return &fc->cls.variant.opts[i].sel_fld_rng_set;
