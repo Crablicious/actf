@@ -27,7 +27,6 @@
 
 #include <stdint.h>
 
-#include "decoder.h"
 #include "event_generator.h"
 
 /** A muxer, implements an actf_event_generator */
