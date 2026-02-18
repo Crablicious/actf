@@ -79,7 +79,7 @@ enum actf_printer_flags {
  *
  * @param flags actf_printer_flags ORed together detailing how/what to
  * print
- * @return a printer
+ * @return a printer or NULL with errno set
  */
 actf_printer *actf_printer_init(int flags);
 
