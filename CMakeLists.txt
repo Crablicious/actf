@@ -7,6 +7,7 @@ project(actf
 option(BUILD_BIN   "Build test applications." ON)
 option(BUILD_TESTS "Build unit tests." ON)
 option(BUILD_DOC   "Build documentation." ON)
+option(USE_LUA     "Build support for lua filters." ON)
 
 include(GNUInstallDirs)
 
@@ -17,6 +18,10 @@ SET(libdir ${CMAKE_INSTALL_FULL_LIBDIR})
 SET(includedir ${CMAKE_INSTALL_FULL_INCLUDEDIR})
 SET(VERSION ${PROJECT_VERSION})
 SET(REQUIRES json-c)
+if(USE_LUA)
+  SET(REQUIRES lua)
+  SET(ACTF_USE_LUA ON)
+endif()
 configure_file(${PROJECT_SOURCE_DIR}/actf.pc.in ${PROJECT_BINARY_DIR}/actf.pc @ONLY)
 
 set(C_STANDARD 11)
@@ -24,14 +29,12 @@ set(C_STANDARD_REQUIRED True)
 add_definitions("-D_POSIX_C_SOURCE=200809L")
 
 if(CMAKE_C_BYTE_ORDER STREQUAL "BIG_ENDIAN")
-  set(WORDS_BIGENDIAN ON)
+  set(ACTF_WORDS_BIGENDIAN ON)
 endif()
 
 configure_file(${PROJECT_SOURCE_DIR}/cmake/config.h.in ${PROJECT_BINARY_DIR}/config.h)
 
 set(ACTF_HDR_PRIVATE
-  ${PROJECT_BINARY_DIR}/config.h
-
   ${PROJECT_SOURCE_DIR}/breader.h
   ${PROJECT_SOURCE_DIR}/crust/arena.h
   ${PROJECT_SOURCE_DIR}/crust/common.h
@@ -59,6 +62,7 @@ set(ACTF_HDR_PRIVATE
 
 set(ACTF_HDR_PUBLIC
   ${PROJECT_SOURCE_DIR}/actf.h
+  ${PROJECT_BINARY_DIR}/config.h
   ${PROJECT_SOURCE_DIR}/decoder.h
   ${PROJECT_SOURCE_DIR}/event.h
   ${PROJECT_SOURCE_DIR}/event_generator.h
@@ -100,14 +104,24 @@ set(ACTF_SRCS
   ${PROJECT_SOURCE_DIR}/rng.c
 )
 
+if(USE_LUA)
+  list(APPEND ACTF_SRCS ${PROJECT_SOURCE_DIR}/lua_filter.c)
+  list(APPEND ACTF_HDR_PUBLIC ${PROJECT_SOURCE_DIR}/lua_filter.h)
+endif()
+
 add_library(${PROJECT_NAME}
   ${ACTF_SRCS}
   ${ACTF_HDR_PUBLIC}
   ${ACTF_HDR_PRIVATE}
 )
 
-find_package(json-c CONFIG NO_CMAKE_FIND_ROOT_PATH)
+find_package(json-c REQUIRED CONFIG NO_CMAKE_FIND_ROOT_PATH)
 target_link_libraries(${PROJECT_NAME} PRIVATE json-c::json-c)
+
+if(USE_LUA)
+  find_package(lua 5.4 CONFIG NO_CMAKE_FIND_ROOT_PATH)
+  target_link_libraries(${PROJECT_NAME} PRIVATE lua)
+endif()
 
 target_include_directories(${PROJECT_NAME}
   PUBLIC ${PROJECT_BINARY_DIR}
@@ -145,6 +159,10 @@ if(BUILD_TESTS)
     ${PROJECT_SOURCE_DIR}/test_prio_queue.h
     ${PROJECT_SOURCE_DIR}/test_rng.h
   )
+  if(USE_LUA)
+    list(APPEND ACTF_TEST_SRCS ${PROJECT_SOURCE_DIR}/test_lua_filter.c)
+    list(APPEND ACTF_TEST_HDR ${PROJECT_SOURCE_DIR}/test_lua_filter.h)
+  endif()
   add_executable(tests.out
     ${ACTF_SRCS}
     ${ACTF_TEST_SRCS}
@@ -162,6 +180,9 @@ if(BUILD_TESTS)
     PRIVATE cunit
     PRIVATE json-c::json-c
   )
+  if(USE_LUA)
+   target_link_libraries(tests.out PRIVATE lua)
+  endif()
 endif()
 
 if(BUILD_DOC)
@@ -170,6 +191,7 @@ if(BUILD_DOC)
   set(DOXYGEN_JAVADOC_AUTOBRIEF YES)
   set(DOXYGEN_SORT_MEMBER_DOCS NO)
   set(DOXYGEN_OPTIMIZE_OUTPUT_FOR_C YES)
+  set(DOXYGEN_STRIP_FROM_PATH ${PROJECT_BINARY_DIR})
   doxygen_add_docs(doc
     ${ACTF_HDR_PUBLIC}
     README.md

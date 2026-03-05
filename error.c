@@ -161,6 +161,8 @@ const char *actf_errstr(int rc)
 		"a selector field is not found for an optional or variant", // ACTF_NO_SELECTOR_FLD
 		"a packet content length is larger than its total length", // ACTF_INVALID_CONTENT_LEN
 		"a metadata packet is not valid", // ACTF_INVALID_METADATA_PKT
+		"the wrong type was returned from a lua function", // ACTF_LUA_WRONG_RET_TYPE
+		"the lua function failed to run", // ACTF_LUA_RUN_ERROR
 	};
 	if (rc >= 0 && rc < (int) (sizeof(strs) / sizeof(*strs))) {
 		return strs[rc];

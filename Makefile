@@ -15,10 +15,17 @@ all: san
 
 .PHONY: san
 san:
-	cmake -DCMAKE_C_COMPILER="$(CC)" -DCMAKE_C_FLAGS="$(BASE_CFLAGS) $(SAN_CFLAGS)" -DCMAKE_COLOR_MAKEFILE="OFF" -DCMAKE_INSTALL_PREFIX="$(abspath ./build_san/install)" -S . -B ./build_san
+	cmake -DUSE_LUA=ON -DCMAKE_C_COMPILER="$(CC)" -DCMAKE_C_FLAGS="$(BASE_CFLAGS) $(SAN_CFLAGS)" -DCMAKE_COLOR_MAKEFILE="OFF" -DCMAKE_INSTALL_PREFIX="$(abspath ./build_san/install)" -S . -B ./build_san
 	cmake --build ./build_san --config Debug -j`nproc 2>/dev/null`
 	./build_san/tests.out
 	./runtests.sh -e ./build_san/actf
+
+.PHONY: san_no_lua
+san_no_lua:
+	cmake -DUSE_LUA=OFF -DCMAKE_C_COMPILER="$(CC)" -DCMAKE_C_FLAGS="$(BASE_CFLAGS) $(SAN_CFLAGS)" -DCMAKE_COLOR_MAKEFILE="OFF" -DCMAKE_INSTALL_PREFIX="$(abspath ./build_san_no_lua/install)" -S . -B ./build_san_no_lua
+	cmake --build ./build_san_no_lua --config Debug -j`nproc 2>/dev/null`
+	./build_san_no_lua/tests.out
+	./runtests.sh -e ./build_san_no_lua/actf
 
 san32:
 	cmake -DCMAKE_C_COMPILER="$(CC)" -DCMAKE_C_FLAGS="$(BASE_CFLAGS) $(SAN_CFLAGS) -m32" -DCMAKE_COLOR_MAKEFILE="OFF" -DCMAKE_INSTALL_PREFIX="$(abspath ./build_san32/install)" -DBUILD_TESTS="OFF" -S . -B ./build_san32

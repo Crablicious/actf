@@ -21,6 +21,7 @@
 #include <CUnit/CUnit.h>
 #include <CUnit/Basic.h>
 
+#include "config.h"
 #include "test_breader.h"
 #include "test_decoder.h"
 #include "test_filter.h"
@@ -31,6 +32,9 @@
 #include "test_rng.h"
 #include "test_error.h"
 #include "test_prio_queue.h"
+#ifdef ACTF_USE_LUA
+#include "test_lua_filter.h"
+#endif
 
 
 int main(void)
@@ -50,6 +54,9 @@ int main(void)
 		test_rng_suite,
 		test_error_suite,
 		test_prio_queue_suite,
+#ifdef ACTF_USE_LUA
+		test_lua_filter_suite,
+#endif
 		CU_SUITE_INFO_NULL,
 	};
 

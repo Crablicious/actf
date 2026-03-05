@@ -29,7 +29,7 @@
 #include "config.h"
 
 
-#ifndef WORDS_BIGENDIAN // Little endian
+#ifndef ACTF_WORDS_BIGENDIAN // Little endian
 #define HTOLE64(x) (x)
 #define HTOBE64(x) bswap64(x)
 #else // Big endian

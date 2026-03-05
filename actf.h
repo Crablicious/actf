@@ -33,6 +33,10 @@
 #ifndef ACTF_H
 #define ACTF_H
 
+#include "config.h"
+#ifdef ACTF_USE_LUA
+#include "lua_filter.h"
+#endif
 #include "types.h"
 #include "decoder.h"
 #include "event.h"

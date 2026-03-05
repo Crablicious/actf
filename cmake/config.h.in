@@ -1,1 +1,7 @@
-#cmakedefine WORDS_BIGENDIAN
+/**
+ * @file
+ * actf configuration.
+ */
+
+#cmakedefine ACTF_WORDS_BIGENDIAN
+#cmakedefine ACTF_USE_LUA

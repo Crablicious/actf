@@ -6,9 +6,10 @@ fast and spec-compliant CTF2 decoding library. It additionally
 includes a command-line utility `actf` that can read and print a [CTF
 2 trace stored on a file system][spec-fs].
 
-actf is written for C11 and POSIX 2008. It has a single dependency,
-[json-c][jsonc], to facilitate the parsing of the JSON fragment based
-CTF2 metadata.
+actf is written for C11 and POSIX 2008. It has a single mandatory
+dependency, [json-c][jsonc], to facilitate the parsing of the JSON
+fragment based CTF2 metadata, and an optional dependency, [lua
+5.4][lua], to allow for event processing with lua.
 
 Since CTF2 is still in its infancy with regards to producers, this
 library is mainly built based on the specification. Perhaps it works
@@ -91,6 +92,7 @@ The following options are supported by cmake:
 | BUILD_BIN   | BOOL | ON      | Whether to build the actf application  |
 | BUILD_TESTS | BOOL | ON      | Whether to build unit tests            |
 | BUILD_DOC   | BOOL | ON      | Whether to build doxygen documentation |
+| USE_LUA     | BOOL | ON      | Whether to include lua support         |
 
 ## Running tests
 
@@ -137,6 +139,40 @@ in your code.
 See the [examples](./examples) folder for example applications and how
 to build them.
 
+## Lua scripting
+
+actf has support for lua scripting if built with `USE_LUA=ON`. This
+allows you to write lua scripts to filter and/or analyze CTF events.
+The lua API is designed for ease of use and supports a subset of the
+actf API focused on accessing events and their fields. It is
+implemented as a lua filter that can be hooked up to any other event
+generator (such as from a CTF trace on the file system). If using the
+command-line tool actf you can pass a lua script with the `-x` flag
+and arguments with the `-z` flag.
+
+For example, the following lua filter will filter out all events whose
+names are not matching the input arguments:
+
+```lua
+function actf.init(...)
+   filtertbl = {}
+   for i,v in ipairs(table.pack(...)) do
+      filtertbl[v] = true
+   end
+end
+
+function actf.filter(ev)
+   return filtertbl[ev:name()] and 0 or 1
+end
+```
+
+This could be run as `actf -x <filter-file> -z <event-name0> -z <event-name1> <ctfpath>`.
+
+You can also use the lua filter for analyzing the trace data, see the
+dining philosopher [example](./examples/philo.lua).
+
+The lua API is documented in `actf_lua_filter.h`.
+
 ## Multi-threading support
 
 actf is single-threaded itself but uses no mutable static or global
@@ -151,3 +187,4 @@ LGPLv3.0 or later, see COPYING and COPYING.LESSER.
 [spec]: https://diamon.org/ctf/ "CTF2-SPEC-2.0"
 [spec-fs]: https://diamon.org/ctf/files/CTF2-FS-1.0.html "CTF2-FS-1.0"
 [jsonc]: https://github.com/json-c/json-c "json-c"
+[lua]: https://www.lua.org/ "Lua"

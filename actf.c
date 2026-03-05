@@ -30,6 +30,10 @@
 
 #include "actf.h"
 
+#ifdef ACTF_USE_LUA
+#include "str_vec.h"
+#endif
+
 
 #define ARRLEN(a) (sizeof(a)/sizeof(a)[0])
 
@@ -65,7 +69,13 @@ static void print_usage(void)
 		"              For the [-]sec[.nano] format, sec is the number of seconds from origin.\n"
 		"              The date is considered localtime. If you want UTC, set environment to TZ=UTC.\n"
 		"  -e <tstamp> Trim events occurring after tstamp. See available formats under -b.\n"
-		"  -q          Quiet, do not print events\n" "  -h          Print help\n" "");
+		"  -q          Quiet, do not print events\n"
+#ifdef ACTF_USE_LUA
+		"  -x <file>   Filter events using the provided file as a lua filter.\n"
+		"  -z <arg>    Argument to the lua filter, can be specified multiple times.\n"
+#endif
+		"  -h          Print help\n"
+		);
 }
 
 struct flags {
@@ -75,6 +85,10 @@ struct flags {
 	int printer_flags;
 	struct actf_filter_time_range filter_range;
 	bool has_filter_range;
+#ifdef ACTF_USE_LUA
+	char *lua_filter_path;
+	str_vec lua_filter_args;
+#endif
 };
 
 /* strtoboundi64 parses s as a bounded base10 int64 and puts it in
@@ -299,7 +313,12 @@ static void parse_flags(int argc, char *argv[], struct flags *f)
 	int opt;
 	char *subopts;
 	char *value;
-	while ((opt = getopt(argc, argv, "p:ldcgtsb:e:qh")) != -1) {
+#ifdef ACTF_USE_LUA
+#define ACTF_LUA_FLAGS "x:z:"
+#else
+#define ACTF_LUA_FLAGS
+#endif
+	while ((opt = getopt(argc, argv, "p:ldcgtsb:e:qh"ACTF_LUA_FLAGS)) != -1) {
 		switch (opt) {
 		case 'p':
 			subopts = optarg;
@@ -361,6 +380,14 @@ static void parse_flags(int argc, char *argv[], struct flags *f)
 		case 'q':
 			f->quiet = true;
 			break;
+#ifdef ACTF_USE_LUA
+		case 'x':
+			f->lua_filter_path = optarg;
+			break;
+		case 'z':
+			str_vec_push(&f->lua_filter_args, optarg);
+			break;
+#endif
 		case 'h':
 			print_usage();
 			exit(0);
@@ -404,13 +431,15 @@ static void parse_flags(int argc, char *argv[], struct flags *f)
 static int read_events(struct actf_event_generator gen, bool quiet, int printer_flags)
 {
 	int rc = ACTF_OK;
-	uint64_t count = 0;
-	uint64_t last_disc_evs = 0;
-	actf_printer *p = actf_printer_init(printer_flags);
-	if (!p) {
-		return ACTF_ERROR;
+	actf_printer *p = NULL;
+	if (! (p = actf_printer_init(printer_flags))) {
+		fprintf(stderr, "actf_printer_init: %s\n", strerror(errno));
+		rc = ACTF_ERROR;
+		goto err;
 	}
 
+	uint64_t count = 0;
+	uint64_t last_disc_evs = 0;
 	uint64_t last_seq_num = 0;
 	size_t evs_len = 0;
 	actf_event **evs = NULL;
@@ -443,6 +472,7 @@ static int read_events(struct actf_event_generator gen, bool quiet, int printer_
 		fprintf(stderr, "%" PRIu64 " events discarded\n", last_disc_evs);
 	}
 
+err:
 	actf_printer_free(p);
 	return rc;
 }
@@ -465,20 +495,56 @@ int main(int argc, char *argv[])
 	}
 	struct actf_event_generator gen = actf_freader_to_generator(rd);
 
+	int rc = ACTF_OK;
 	actf_filter *flt = NULL;
 	if (flags.has_filter_range) {
 		flt = actf_filter_init(gen, flags.filter_range);
 		if (!flt) {
 			fprintf(stderr, "actf_filter_init: %s\n", strerror(errno));
-			actf_freader_free(rd);
-			return ACTF_OOM;
+			rc = ACTF_OOM;
+			goto err_flt;
 		}
 		gen = actf_filter_to_generator(flt);
 	}
 
-	int rc = read_events(gen, flags.quiet, flags.printer_flags);
+#ifdef ACTF_USE_LUA
+	actf_lua_filter *lflt = NULL;
+	if (flags.lua_filter_path) {
+		lflt = actf_lua_filter_init(gen, 0);
+		if (lflt == NULL) {
+			fprintf(stderr, "actf_lua_filter_init: %s\n", strerror(errno));
+			goto err_lflt;
+		}
+		rc = actf_lua_filter_lua_init(lflt, flags.lua_filter_path,
+					      flags.lua_filter_args.len,
+					      flags.lua_filter_args.data);
+		if (rc < 0) {
+			fprintf(stderr, "actf_lua_filter_lua_init: %s\n", actf_lua_filter_last_error(lflt));
+			goto err_lflt_lua_init;
+		}
+		gen = actf_lua_filter_to_generator(lflt);
+	}
+#endif
 
+	rc = read_events(gen, flags.quiet, flags.printer_flags);
+
+#ifdef ACTF_USE_LUA
+	if (lflt) {
+		int lrc = actf_lua_filter_lua_fini(lflt);
+		if (lrc < 0) {
+			fprintf(stderr, "actf_lua_filter_lua_fini: %s\n", actf_lua_filter_last_error(lflt));
+			rc = lrc;
+		}
+	}
+err_lflt_lua_init:
+	actf_lua_filter_free(lflt);
+err_lflt:
+#endif
 	actf_filter_free(flt);
+err_flt:
 	actf_freader_free(rd);
+#ifdef ACTF_USE_LUA
+	str_vec_free(&flags.lua_filter_args);
+#endif
 	return rc;
 }

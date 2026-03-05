@@ -77,6 +77,8 @@
 #define ACTF_NO_SELECTOR_FLD       -45 /**< A selector field is not found for an optional or variant */
 #define ACTF_INVALID_CONTENT_LEN   -46 /**< A packet's content length is larger than total length of packet */
 #define ACTF_INVALID_METADATA_PKT  -47 /**< A metadata packet is invalid. */
+#define ACTF_LUA_WRONG_RET_TYPE    -48 /**< A lua function returned the wrong type. */
+#define ACTF_LUA_RUN_ERROR         -49 /**< A lua function failed to run. */
 
 /**
  * Convert a return code into an error string.
