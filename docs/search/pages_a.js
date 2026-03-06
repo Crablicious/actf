@@ -1,4 +1,5 @@
 var searchData=
 [
-  ['number_20field_20class_0',['Fixed-length floating point number field class',['../index.html#autotoc_md2',1,'']]]
+  ['methods_0',['Methods',['../lua__filter_8h.html#autotoc_md10',1,'Event Methods'],['../lua__filter_8h.html#autotoc_md11',1,'Packet Methods']]],
+  ['multi_20threading_20support_1',['Multi-threading support',['../index.html#autotoc_md23',1,'']]]
 ];

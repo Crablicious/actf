@@ -50,6 +50,8 @@ var types_8h =
     [ "ACTF_NO_SELECTOR_FLD", "types_8h.html#a969419182dc20187fa2245a142d1edf6", null ],
     [ "ACTF_INVALID_CONTENT_LEN", "types_8h.html#aa827170b1d23a6ff23515fcd0fc76222", null ],
     [ "ACTF_INVALID_METADATA_PKT", "types_8h.html#aec8bcc4fb7f4ec41fadd4d3925a0ce63", null ],
+    [ "ACTF_LUA_WRONG_RET_TYPE", "types_8h.html#a56106b0a8b90d1f9619cecdede7ac8f8", null ],
+    [ "ACTF_LUA_RUN_ERROR", "types_8h.html#aee1f3191a568647c3f7d85b0be7e147b", null ],
     [ "ACTF_UUID_N_BYTES", "types_8h.html#a94d4e6158dee5f83ca3aab9051a623f0", null ],
     [ "actf_fld", "types_8h.html#a3a40fac1346cb57619f76e1e4b9f4970", null ],
     [ "actf_fld_cls", "types_8h.html#a6b189383117656770f83ed20d16375cc", null ],

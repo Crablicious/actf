@@ -1,6 +1,7 @@
 var files_dup =
 [
     [ "actf.h", "actf_8h.html", null ],
+    [ "config.h", "config_8h.html", null ],
     [ "decoder.h", "decoder_8h.html", "decoder_8h" ],
     [ "event.h", "event_8h.html", "event_8h" ],
     [ "event_generator.h", "event__generator_8h.html", "event__generator_8h" ],
@@ -10,6 +11,7 @@ var files_dup =
     [ "fld_cls.h", "fld__cls_8h.html", "fld__cls_8h" ],
     [ "fld_loc.h", "fld__loc_8h.html", "fld__loc_8h" ],
     [ "freader.h", "freader_8h.html", "freader_8h" ],
+    [ "lua_filter.h", "lua__filter_8h.html", "lua__filter_8h" ],
     [ "mappings.h", "mappings_8h.html", "mappings_8h" ],
     [ "metadata.h", "metadata_8h.html", "metadata_8h" ],
     [ "muxer.h", "muxer_8h.html", "muxer_8h" ],

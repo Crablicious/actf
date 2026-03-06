@@ -1,6 +1,6 @@
 var searchData=
 [
-  ['tests_0',['Running tests',['../index.html#autotoc_md7',1,'']]],
-  ['threading_20support_1',['Multi-threading support',['../index.html#autotoc_md10',1,'']]],
-  ['trace_20format_202_20decoding_20library_2',['actf - A cute acute Common Trace Format (2) decoding library',['../index.html',1,'']]]
+  ['scripting_0',['Lua scripting',['../index.html#autotoc_md22',1,'']]],
+  ['specification_1',['Deviations from CTF 2 specification',['../index.html#autotoc_md13',1,'']]],
+  ['support_2',['Multi-threading support',['../index.html#autotoc_md23',1,'']]]
 ];
