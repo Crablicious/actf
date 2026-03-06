@@ -18,6 +18,7 @@ build/
 build_*/
 bit_dump
 examples/count
+examples/dsr
 examples/philo
 pkt_hdr_dump
 pkt_ctxt_dump
@@ -38,3 +39,4 @@ benchmark
 perf.data*
 *.diff
 *.log
+callgrind.out*
