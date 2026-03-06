@@ -164,8 +164,8 @@ const char *actf_errstr(int rc)
 		"the wrong type was returned from a lua function", // ACTF_LUA_WRONG_RET_TYPE
 		"the lua function failed to run", // ACTF_LUA_RUN_ERROR
 	};
-	if (rc >= 0 && rc < (int) (sizeof(strs) / sizeof(*strs))) {
-		return strs[rc];
+	if (-rc >= 0 && -rc < (int) (sizeof(strs) / sizeof(*strs))) {
+		return strs[-rc];
 	} else {
 		return "unknown error";
 	}
