@@ -1,7 +1,7 @@
 cmake_minimum_required(VERSION 3.20) # 3.20 for CMAKE_<LANG>_BYTE_ORDER
 project(actf
   VERSION 0.0.1
-  DESCRIPTION "A cute acute CTF reader"
+  DESCRIPTION "An acute CTF reader"
   LANGUAGES C)
 
 option(BUILD_BIN   "Build test applications." ON)
