@@ -5,7 +5,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=11"/>
 <meta name="generator" content="Doxygen 1.16.1"/>
 <meta name="viewport" content="width=device-width, initial-scale=1"/>
-<title>actf: actf - A cute acute Common Trace Format (2) decoding library</title>
+<title>actf: actf - An acute Common Trace Format (2) decoding library</title>
 <link href="tabs.css" rel="stylesheet" type="text/css"/>
 <script type="text/javascript" src="jquery.js"></script>
 <script type="text/javascript" src="dynsections.js"></script>
@@ -28,7 +28,7 @@
   <td id="projectalign">
    <div id="projectname">actf<span id="projectnumber">&#160;0.0.1</span>
    </div>
-   <div id="projectbrief">A cute acute CTF reader</div>
+   <div id="projectbrief">An acute CTF reader</div>
   </td>
  </tr>
  </tbody>
@@ -89,54 +89,16 @@ $(function(){initNavTree('index.html','',''); });
 </div>
 
 <div><div class="header">
-  <div class="headertitle"><div class="title">actf - A cute acute Common Trace Format (2) decoding library </div></div>
+  <div class="headertitle"><div class="title">actf - An acute Common Trace Format (2) decoding library </div></div>
 </div><!--header-->
 <div class="contents">
 <div class="textblock"><p><a class="anchor" id="md__2home_2adwe_2code_2actf_2README"></a></p>
-<p>actf is a C library for decoding a <a href="https://diamon.org/ctf/" title="CTF2-SPEC-2.0">Common Trace Format (CTF) Version 2</a> metadata stream and data stream. The goal of actf is to be a fast and spec-compliant CTF2 decoding library. It additionally includes a command-line utility <span class="tt">actf</span> that can read and print a <a href="https://diamon.org/ctf/files/CTF2-FS-1.0.html" title="CTF2-FS-1.0">CTF 2 trace stored on a file system</a>.</p>
-<p>actf is written for C11 and POSIX 2008. It has a single mandatory dependency, <a href="https://github.com/json-c/json-c" title="json-c">json-c</a>, to facilitate the parsing of the JSON fragment based CTF2 metadata, and an optional dependency, <a href="https://www.lua.org/" title="Lua">lua 5.4</a>, to allow for event processing with lua.</p>
+<p>actf is a C library for decoding <a href="https://diamon.org/ctf/" title="CTF2-SPEC-2.0">Common Trace Format (CTF) Version 2</a> traces. The goal of actf is to be a lightweight, fast and spec-compliant CTF2 decoding library. It additionally includes a command-line utility <span class="tt">actf</span> that can read and print a <a href="https://diamon.org/ctf/files/CTF2-FS-1.0.html" title="CTF2-FS-1.0">CTF 2 trace stored on a file system</a>.</p>
+<p>actf is written for C11 and POSIX 2008. It has a single mandatory dependency, <a href="https://github.com/json-c/json-c" title="json-c">json-c</a>, to facilitate the parsing of the JSON fragment based CTF2 metadata, and an optional dependency, <a href="https://www.lua.org/" title="Lua">lua 5.4</a>, to allow for easy event processing through scripting.</p>
+<p>actf provides you with the trace events and fields without imposing implicit costs for convenience sake: integer mappings and bit map flags are only looked up on demand, and strings and blobs are exposed in a zero-copy fashion. For strings, this means that the raw string you get access to from a field might not be null-terminated and this is the origin of the <em>acute</em> in the library name. If this worries you, I would advise you to check out the reference decoder <a href="https://github.com/efficios/babeltrace" title="babeltrace">babeltrace</a> instead.</p>
 <p>Since CTF2 is still in its infancy with regards to producers, this library is mainly built based on the specification. Perhaps it works or perhaps I have invented a decoder for a new custom binary format.</p>
 <p><b>actf does not support CTF version 1.X</b></p>
 <h1 class="doxsection"><a class="anchor" id="autotoc_md13"></a>
-Deviations from CTF 2 specification</h1>
-<h2 class="doxsection"><a class="anchor" id="autotoc_md14"></a>
-Fixed-length floating point number field class</h2>
-<p>The specification allows fixed-length floating point numbers to have the following lengths (bits):</p><ul>
-<li>16</li>
-<li>32</li>
-<li>64</li>
-<li>128</li>
-<li><em>K</em>, where <em>K</em> is greater than 128 and a multiple of 32</li>
-</ul>
-<p>In actf, only lengths 32 and 64 is supported.</p>
-<h2 class="doxsection"><a class="anchor" id="autotoc_md15"></a>
-All fixed-length bit array derived classes</h2>
-<p>The specification does not put a limit on the number of bits a fixed-length bit array can represent.</p>
-<p>In actf, the maximum length of a fixed-length bit array field is limited to 64.</p>
-<p>This affects the following field classes:</p><ul>
-<li>fixed-length bit array</li>
-<li>fixed-length bit map</li>
-<li>fixed-length boolean</li>
-<li>fixed-length floating point number</li>
-</ul>
-<h2 class="doxsection"><a class="anchor" id="autotoc_md16"></a>
-Variable-length integer field class</h2>
-<p>The specification does not limit the size of a variable-length integer.</p>
-<p>In actf, a variable-length integer will be truncated to 64 bits.</p>
-<h2 class="doxsection"><a class="anchor" id="autotoc_md17"></a>
-Range JSON integer limitations</h2>
-<p>A range consists of two JSON integers which represent the lower and upper bound. JSON integers are not limited in size by a specification, so the actual bounds differ per implementation.</p>
-<p>In actf, the following applies:</p><ul>
-<li>For integer field class mappings, the ranges will be represented by <em>int64_t</em> or <em>uint64_t</em> based on if the holding integer field class is signed or not. Thus a fixed-length-unsigned-integer's mapping ranges can represent 0 to UINT64_MAX (inclusive), and a fixed-length-signed-integer's mapping ranges can represent INT64_MIN to INT64_MAX (inclusive).<ul>
-<li>A range out of bounds will be truncated or removed since an integer field wouldn't be able to represent it anyway.</li>
-</ul>
-</li>
-<li>For selector-field-ranges of optional and variant field classes, each integer range set is required to be either fully representable as <em>uint64_t</em> or <em>int64_t</em>.<ul>
-<li>A range set containing one or more ranges with a negative JSON integer and a JSON integer larger than INT64_MAX is not supported and will cause an error. Such a range set cannot be represented by the implementation and could cause a wrong decoding.</li>
-</ul>
-</li>
-</ul>
-<h1 class="doxsection"><a class="anchor" id="autotoc_md18"></a>
 Building actf</h1>
 <p>actf is built with cmake:</p>
 <div class="fragment"><div class="line">$ mkdir build</div>
@@ -155,13 +117,13 @@ Building actf</h1>
 <tr class="markdownTableRowEven">
 <td class="markdownTableBodyNone">USE_LUA  </td><td class="markdownTableBodyNone">BOOL  </td><td class="markdownTableBodyNone">ON  </td><td class="markdownTableBodyNone">Whether to include lua support  </td></tr>
 </table>
-<h1 class="doxsection"><a class="anchor" id="autotoc_md19"></a>
+<h1 class="doxsection"><a class="anchor" id="autotoc_md14"></a>
 Running tests</h1>
 <p>Unit tests are cunit-based and can be executed by building a test executable (cmake option <span class="tt">BUILD_TESTS</span>) and then executing it. Here shown using build-directory <span class="tt">build</span>:</p>
 <div class="fragment"><div class="line">$ ./build/tests.out</div>
 </div><!-- fragment --><p>actf is heavily tested using functional tests which are diffed against a reference-file. First make sure the test application is built (cmake option <span class="tt">BUILD_BIN</span>). The functional tests can then be executed with the <span class="tt">runtests.sh</span> script as follows (build-directory <span class="tt">build</span>):</p>
 <div class="fragment"><div class="line">$ ./runtests.sh -e ./build/actf</div>
-</div><!-- fragment --><h1 class="doxsection"><a class="anchor" id="autotoc_md20"></a>
+</div><!-- fragment --><h1 class="doxsection"><a class="anchor" id="autotoc_md15"></a>
 Building documentation</h1>
 <p>The public API of actf is documented using doxygen. It is built by enabling cmake option <span class="tt">BUILD_DOC</span> and then running make on the target <span class="tt">doc</span>.</p>
 <div class="fragment"><div class="line">$ mkdir build</div>
@@ -169,13 +131,13 @@ Building documentation</h1>
 <div class="line">$ cmake -DBUILD_DOC=ON ..</div>
 <div class="line">$ make doc</div>
 <div class="line">$ firefox html/index.html</div>
-</div><!-- fragment --><h1 class="doxsection"><a class="anchor" id="autotoc_md21"></a>
+</div><!-- fragment --><h1 class="doxsection"><a class="anchor" id="autotoc_md16"></a>
 Using libactf</h1>
 <p>Link to actf however you please and include the header <span class="tt"><a class="el" href="actf_8h.html" title="The main API entrypoint for actf, only this file should be included.">actf/actf.h</a></span> in your code.</p>
 <div class="fragment"><div class="line"><span class="preprocessor">#include &lt;<a class="code" href="actf_8h.html">actf/actf.h</a>&gt;</span></div>
 <div class="ttc" id="aactf_8h_html"><div class="ttname"><a href="actf_8h.html">actf.h</a></div><div class="ttdoc">The main API entrypoint for actf, only this file should be included.</div></div>
 </div><!-- fragment --><p>See the <a href="./examples">examples</a> folder for example applications and how to build them.</p>
-<h1 class="doxsection"><a class="anchor" id="autotoc_md22"></a>
+<h1 class="doxsection"><a class="anchor" id="autotoc_md17"></a>
 Lua scripting</h1>
 <p>actf has support for lua scripting if built with <span class="tt">USE_LUA=ON</span>. This allows you to write lua scripts to filter and/or analyze CTF events. The lua API is designed for ease of use and supports a subset of the actf API focused on accessing events and their fields. It is implemented as a lua filter that can be hooked up to any other event generator (such as from a CTF trace on the file system). If using the command-line tool actf you can pass a lua script with the <span class="tt">-x</span> flag and arguments with the <span class="tt">-z</span> flag.</p>
 <p>For example, the following lua filter will filter out all events whose names are not matching the input arguments:</p>
@@ -192,9 +154,48 @@ Lua scripting</h1>
 </div><!-- fragment --><p>This could be run as <span class="tt">actf -x &lt;filter-file&gt; -z &lt;event-name0&gt; -z &lt;event-name1&gt; &lt;ctfpath&gt;</span>.</p>
 <p>You can also use the lua filter for analyzing the trace data, see the dining philosopher <a href="./examples/philo.lua">example</a>.</p>
 <p>The lua API is documented in <span class="tt">actf_lua_filter.h</span>.</p>
-<h1 class="doxsection"><a class="anchor" id="autotoc_md23"></a>
+<h1 class="doxsection"><a class="anchor" id="autotoc_md18"></a>
 Multi-threading support</h1>
 <p>actf is single-threaded itself but uses no mutable static or global variables, so as long as each thread has their own mutable structs, it will be fine. E.g. two threads can run two separate <a class="el" href="decoder_8h.html#a9c7e855a65ee2a7cba9e8dfca2468157" title="A CTF2 decoder, implements an actf_event_generator.">actf_decoder</a> in parallel using the same <a class="el" href="metadata_8h.html#a22f88f8f9b5537b2ca7e7edc9ad2ae91" title="A CTF2 metadata.">actf_metadata</a>.</p>
+<h1 class="doxsection"><a class="anchor" id="autotoc_md19"></a>
+Deviations from CTF 2 specification</h1>
+<h2 class="doxsection"><a class="anchor" id="autotoc_md20"></a>
+Fixed-length floating point number field class</h2>
+<p>The specification allows fixed-length floating point numbers to have the following lengths (bits):</p><ul>
+<li>16</li>
+<li>32</li>
+<li>64</li>
+<li>128</li>
+<li><em>K</em>, where <em>K</em> is greater than 128 and a multiple of 32</li>
+</ul>
+<p>In actf, only lengths 32 and 64 is supported.</p>
+<h2 class="doxsection"><a class="anchor" id="autotoc_md21"></a>
+All fixed-length bit array derived classes</h2>
+<p>The specification does not put a limit on the number of bits a fixed-length bit array can represent.</p>
+<p>In actf, the maximum length of a fixed-length bit array field is limited to 64.</p>
+<p>This affects the following field classes:</p><ul>
+<li>fixed-length bit array</li>
+<li>fixed-length bit map</li>
+<li>fixed-length boolean</li>
+<li>fixed-length floating point number</li>
+</ul>
+<h2 class="doxsection"><a class="anchor" id="autotoc_md22"></a>
+Variable-length integer field class</h2>
+<p>The specification does not limit the size of a variable-length integer.</p>
+<p>In actf, a variable-length integer will be truncated to 64 bits.</p>
+<h2 class="doxsection"><a class="anchor" id="autotoc_md23"></a>
+Range JSON integer limitations</h2>
+<p>A range consists of two JSON integers which represent the lower and upper bound. JSON integers are not limited in size by a specification, so the actual bounds differ per implementation.</p>
+<p>In actf, the following applies:</p><ul>
+<li>For integer field class mappings, the ranges will be represented by <em>int64_t</em> or <em>uint64_t</em> based on if the holding integer field class is signed or not. Thus a fixed-length-unsigned-integer's mapping ranges can represent 0 to UINT64_MAX (inclusive), and a fixed-length-signed-integer's mapping ranges can represent INT64_MIN to INT64_MAX (inclusive).<ul>
+<li>A range out of bounds will be truncated or removed since an integer field wouldn't be able to represent it anyway.</li>
+</ul>
+</li>
+<li>For selector-field-ranges of optional and variant field classes, each integer range set is required to be either fully representable as <em>uint64_t</em> or <em>int64_t</em>.<ul>
+<li>A range set containing one or more ranges with a negative JSON integer and a JSON integer larger than INT64_MAX is not supported and will cause an error. Such a range set cannot be represented by the implementation and could cause a wrong decoding.</li>
+</ul>
+</li>
+</ul>
 <h1 class="doxsection"><a class="anchor" id="autotoc_md24"></a>
 License</h1>
 <p>LGPLv3.0 or later, see COPYING and COPYING.LESSER. </p>

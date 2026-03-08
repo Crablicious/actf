@@ -25,7 +25,7 @@
 var NAVTREE =
 [
   [ "actf", "index.html", [
-    [ "actf - A cute acute Common Trace Format (2) decoding library", "index.html", "index" ],
+    [ "actf - An acute Common Trace Format (2) decoding library", "index.html", "index" ],
     [ "Data Structures", "annotated.html", [
       [ "Data Structures", "annotated.html", "annotated_dup" ],
       [ "Data Structure Index", "classes.html", null ],

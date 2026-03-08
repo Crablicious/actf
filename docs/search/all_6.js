@@ -1,7 +1,7 @@
 var searchData=
 [
   ['field_0',['Field',['../lua__filter_8h.html#autotoc_md9',1,'Compound Field'],['../lua__filter_8h.html#autotoc_md8',1,'Field']]],
-  ['field_20class_1',['field class',['../index.html#autotoc_md14',1,'Fixed-length floating point number field class'],['../index.html#autotoc_md16',1,'Variable-length integer field class']]],
+  ['field_20class_1',['field class',['../index.html#autotoc_md20',1,'Fixed-length floating point number field class'],['../index.html#autotoc_md22',1,'Variable-length integer field class']]],
   ['field_20represenations_2',['Raw Field Represenations',['../lua__filter_8h.html#autotoc_md7',1,'']]],
   ['field_20representations_3',['Field Representations',['../lua__filter_8h.html#autotoc_md6',1,'']]],
   ['filter_4',['Example filter',['../lua__filter_8h.html#autotoc_md4',1,'']]],
@@ -9,14 +9,14 @@ var searchData=
   ['filter_20ev_6',['actf.filter(ev)',['../lua__filter_8h.html#autotoc_md2',1,'']]],
   ['filter_2eh_7',['filter.h',['../filter_8h.html',1,'']]],
   ['fini_8',['actf.fini()',['../lua__filter_8h.html#autotoc_md3',1,'']]],
-  ['fixed_20length_20bit_20array_20derived_20classes_9',['All fixed-length bit array derived classes',['../index.html#autotoc_md15',1,'']]],
-  ['fixed_20length_20floating_20point_20number_20field_20class_10',['Fixed-length floating point number field class',['../index.html#autotoc_md14',1,'']]],
+  ['fixed_20length_20bit_20array_20derived_20classes_9',['All fixed-length bit array derived classes',['../index.html#autotoc_md21',1,'']]],
+  ['fixed_20length_20floating_20point_20number_20field_20class_10',['Fixed-length floating point number field class',['../index.html#autotoc_md20',1,'']]],
   ['flags_2eh_11',['flags.h',['../flags_8h.html',1,'']]],
   ['fld_2eh_12',['fld.h',['../fld_8h.html',1,'']]],
   ['fld_5fcls_2eh_13',['fld_cls.h',['../fld__cls_8h.html',1,'']]],
   ['fld_5floc_2eh_14',['fld_loc.h',['../fld__loc_8h.html',1,'']]],
-  ['floating_20point_20number_20field_20class_15',['Fixed-length floating point number field class',['../index.html#autotoc_md14',1,'']]],
-  ['format_202_20decoding_20library_16',['actf - A cute acute Common Trace Format (2) decoding library',['../index.html',1,'']]],
+  ['floating_20point_20number_20field_20class_15',['Fixed-length floating point number field class',['../index.html#autotoc_md20',1,'']]],
+  ['format_202_20decoding_20library_16',['actf - An acute Common Trace Format (2) decoding library',['../index.html',1,'']]],
   ['freader_2eh_17',['freader.h',['../freader_8h.html',1,'']]],
-  ['from_20ctf_202_20specification_18',['Deviations from CTF 2 specification',['../index.html#autotoc_md13',1,'']]]
+  ['from_20ctf_202_20specification_18',['Deviations from CTF 2 specification',['../index.html#autotoc_md19',1,'']]]
 ];
