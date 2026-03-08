@@ -564,7 +564,11 @@ static const actf_fld *event_fld(lua_State *L)
 	if (! key) {
 		luaL_argerror(L, 2, "`string' expected");
 	}
-	return actf_event_fldn(lev->ev, key, len);
+	const actf_fld *fld = actf_event_fldn(lev->ev, key, len);
+	if (! fld) {
+		fld = actf_pkt_fldn(actf_event_pkt(lev->ev), key, len);
+	}
+	return fld;
 }
 
 static int event_get(lua_State *L)

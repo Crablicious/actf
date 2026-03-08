@@ -34,6 +34,9 @@ function actf.filter(ev)
    elseif ev:packet():header():get('magic') ~= 0xc1fc1fc1 then
       print("ev:packet():header():get('magic') should be 0xc1fc1fc1")
       return -1
+   elseif ev:get('magic') ~= 0xc1fc1fc1 then
+      print("ev:get('magic') should be 0xc1fc1fc1")
+      return -1
    elseif ev:packet():context():get('magic') ~= nil then
       print("ev:packet():context():get('magic') should be nil")
       return -1

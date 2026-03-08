@@ -167,40 +167,40 @@
  *
  * An event has the following methods defined:
  *
- * | name             | description                                                                          | arguments | return type   |
- * |------------------|--------------------------------------------------------------------------------------|-----------|---------------|
- * | namespace        | get the event's namespace                                                            |           | string or nil |
- * | name             | get the event's name                                                                 |           | string or nil |
- * | uid              | get the event's uid                                                                  |           | string or nil |
- * | get              | get a field in the event's header, context, specific context or payload              | string    | field or nil  |
- * | rawget           | get a non-resolved field in the event's header, context, specific context or payload | string    | field or nil  |
- * | header           | get the event's header                                                               |           | field or nil  |
- * | context          | get the event's context                                                              |           | field or nil  |
- * | specific_context | get the event's specific context                                                     |           | field or nil  |
- * | payload          | get the event's payload                                                              |           | field or nil  |
- * | packet           | get the event's packet                                                               |           | packet        |
- * | timestamp        | get the event's raw timestamp                                                        |           | integer       |
- * | timestamp_ns     | get the event's timestamp in nanoseconds from origin                                 |           | integer       |
- * | attributes       | get the event's attributes                                                           |           | field or nil  |
- * | extensions       | get the event's extensions                                                           |           | field or nil  |
- * | __tostring       | get the event's string representation                                                |           | string        |
+ * | name             | description                                          | arguments | return type   |
+ * |------------------|------------------------------------------------------|-----------|---------------|
+ * | namespace        | get the event's namespace                            |           | string or nil |
+ * | name             | get the event's name                                 |           | string or nil |
+ * | uid              | get the event's uid                                  |           | string or nil |
+ * | get              | get a field in the event or packet                   | string    | field or nil  |
+ * | rawget           | get a non-resolved field in the event or packet      | string    | field or nil  |
+ * | header           | get the event's header                               |           | field or nil  |
+ * | context          | get the event's context                              |           | field or nil  |
+ * | specific_context | get the event's specific context                     |           | field or nil  |
+ * | payload          | get the event's payload                              |           | field or nil  |
+ * | packet           | get the event's packet                               |           | packet        |
+ * | timestamp        | get the event's raw timestamp                        |           | integer       |
+ * | timestamp_ns     | get the event's timestamp in nanoseconds from origin |           | integer       |
+ * | attributes       | get the event's attributes                           |           | field or nil  |
+ * | extensions       | get the event's extensions                           |           | field or nil  |
+ * | __tostring       | get the event's string representation                |           | string        |
  *
  * ## Packet Methods
  *
  * A packet has the following methods defined:
  *
- * | name               | description                                                     | arguments | return type    |
- * |--------------------|-----------------------------------------------------------------|-----------|----------------|
- * | get                | get a field of the packet in its header or context              | string    | field or nil   |
- * | rawget             | get a non-resolved field of the packet in its header or context | string    | field or nil   |
- * | header             | get the packet's header                                         |           | field or nil   |
- * | context            | get the packet's context                                        |           | field or nil   |
- * | sequence_number    | get the packet's sequence number                                |           | integer or nil |
- * | begin_timestamp    | get the packet's raw begin timestamp                            |           | integer        |
- * | begin_timestamp_ns | get the packet's begin timestamp in nanoseconds from origin     |           | integer        |
- * | end_timestamp      | get the packet's raw end timestamp                              |           | integer or nil |
- * | end_timestamp_ns   | get the packet's end timestamp in nanoseconds from origin       |           | integer or nil |
- * | discard_snapshot   | get the packet's discarded event snapshot                       |           | integer or nil |
+ * | name               | description                                                 | arguments | return type    |
+ * |--------------------|-------------------------------------------------------------|-----------|----------------|
+ * | get                | get a field of the packet                                   | string    | field or nil   |
+ * | rawget             | get a non-resolved field of the packet                      | string    | field or nil   |
+ * | header             | get the packet's header                                     |           | field or nil   |
+ * | context            | get the packet's context                                    |           | field or nil   |
+ * | sequence_number    | get the packet's sequence number                            |           | integer or nil |
+ * | begin_timestamp    | get the packet's raw begin timestamp                        |           | integer        |
+ * | begin_timestamp_ns | get the packet's begin timestamp in nanoseconds from origin |           | integer        |
+ * | end_timestamp      | get the packet's raw end timestamp                          |           | integer or nil |
+ * | end_timestamp_ns   | get the packet's end timestamp in nanoseconds from origin   |           | integer or nil |
+ * | discard_snapshot   | get the packet's discarded event snapshot                   |           | integer or nil |
  *
  */
 #ifndef LUA_FILTER_H
