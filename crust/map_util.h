@@ -61,7 +61,7 @@ static inline size_t hash_fnv(const char *s)
 
 static inline int uint64cmp(uint64_t v1, uint64_t v2)
 {
-	return v2 - v1;
+	return (int)(v2 > v1) - (int)(v2 < v1);
 }
 
 /* Based on public domain snippet (2024-09-01):
