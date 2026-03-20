@@ -115,6 +115,10 @@ end
 function actf.filter(ev)
    return filtertbl[ev:name()] and 0 or 1
 end
+
+function actf.fini()
+   -- nothing to do here
+end
 ```
 
 This could be run as `actf -x <filter-file> -z <event-name0> -z <event-name1> <ctfpath>`.
