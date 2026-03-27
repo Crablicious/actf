@@ -122,12 +122,13 @@ function actf.fini()
 end
 ```
 
-This could be run as `actf -x <filter-file> -z <event-name0> -z <event-name1> <ctfpath>`.
+This could be run as `actf -x <filter-file> -z <event-name0> -z <event-name1> <ctfpath>`
+to only print the given events.
 
 You can also use the lua filter for analyzing the trace data, see the
 dining philosopher [example](./examples/philo.lua).
 
-The lua API is documented in `actf_lua_filter.h`.
+The lua API is documented in `lua_filter.h`.
 
 ## Multi-threading support
 
