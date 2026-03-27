@@ -155,9 +155,9 @@ Lua scripting</h1>
 <div class="line">function actf.fini()</div>
 <div class="line">   -- nothing to do here</div>
 <div class="line">end</div>
-</div><!-- fragment --><p>This could be run as <span class="tt">actf -x &lt;filter-file&gt; -z &lt;event-name0&gt; -z &lt;event-name1&gt; &lt;ctfpath&gt;</span>.</p>
+</div><!-- fragment --><p>This could be run as <span class="tt">actf -x &lt;filter-file&gt; -z &lt;event-name0&gt; -z &lt;event-name1&gt; &lt;ctfpath&gt;</span> to only print the given events.</p>
 <p>You can also use the lua filter for analyzing the trace data, see the dining philosopher <a href="./examples/philo.lua">example</a>.</p>
-<p>The lua API is documented in <span class="tt">actf_lua_filter.h</span>.</p>
+<p>The lua API is documented in <span class="tt"><a class="el" href="lua__filter_8h.html" title="A lua event filter and its methods.">lua_filter.h</a></span>.</p>
 <h1 class="doxsection"><a class="anchor" id="autotoc_md18"></a>
 Multi-threading support</h1>
 <p>actf is single-threaded itself but uses no mutable static or global variables, so as long as each thread has their own mutable structs, it will be fine. E.g. two threads can run two separate <a class="el" href="decoder_8h.html#a9c7e855a65ee2a7cba9e8dfca2468157" title="A CTF2 decoder, implements an actf_event_generator.">actf_decoder</a> in parallel using the same <a class="el" href="metadata_8h.html#a22f88f8f9b5537b2ca7e7edc9ad2ae91" title="A CTF2 metadata.">actf_metadata</a>.</p>
