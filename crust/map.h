@@ -202,7 +202,7 @@ static inline int CRUST_PREFIX(MAP_NAME, _insert_hash_unchk)(struct MAP_NAME *m,
 	m->slots[index].val = val;
 	m->len++;
 	if (m->len >= m->grow_limit) {
-		CRUST_PREFIX(MAP_NAME, _grow)(m);
+		return CRUST_PREFIX(MAP_NAME, _grow)(m);
 	}
 	return 0;
 }
