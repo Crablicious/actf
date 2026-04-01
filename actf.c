@@ -428,19 +428,35 @@ static void parse_flags(int argc, char *argv[], struct flags *f)
 	}
 }
 
+struct ds_disc {
+	uint64_t last_disc_evs;
+	uint64_t last_seq_num;
+};
+
+#define MAP_NAME dsidtodisc
+#define MAP_KEY_TYPE uint64_t
+#define MAP_KEY_CMP uint64cmp
+#define MAP_VAL_TYPE struct ds_disc
+#define MAP_HASH hash_uint64
+#include "crust/map.h"
+
 static int read_events(struct actf_event_generator gen, bool quiet, int printer_flags)
 {
 	int rc = ACTF_OK;
 	actf_printer *p = NULL;
+	dsidtodisc idtodisc = {0};
 	if (! (p = actf_printer_init(printer_flags))) {
 		fprintf(stderr, "actf_printer_init: %s\n", strerror(errno));
 		rc = ACTF_ERROR;
 		goto err;
 	}
+	if ((rc = dsidtodisc_init(&idtodisc)) < 0) {
+		fprintf(stderr, "dsidtodisc_init: %s\n", strerror(-rc));
+		rc = ACTF_ERROR;
+		goto err;
+	}
 
 	uint64_t count = 0;
-	uint64_t last_disc_evs = 0;
-	uint64_t last_seq_num = 0;
 	size_t evs_len = 0;
 	actf_event **evs = NULL;
 	while ((rc = gen.generate(gen.self, &evs, &evs_len)) == 0 && evs_len) {
@@ -450,17 +466,29 @@ static int read_events(struct actf_event_generator gen, bool quiet, int printer_
 				printf("\n");
 			}
 			const actf_pkt *pkt = actf_event_pkt(evs[i]);
+			uint64_t dsid = actf_pkt_dstream_id(pkt);
 			uint64_t seq_num = actf_pkt_seq_num(pkt);
-			if (count == 0 || seq_num != last_seq_num) {
-				uint64_t disc_evs = actf_pkt_disc_event_record_snapshot(pkt);
-				if (!quiet && last_disc_evs < disc_evs) {
+			uint64_t disc_evs = actf_pkt_disc_event_record_snapshot(pkt);
+			struct ds_disc *disc = dsidtodisc_find(&idtodisc, dsid);
+			if (disc) {
+				if (!quiet && disc->last_disc_evs < disc_evs) {
 					fprintf(stderr,
-						"packet %" PRIu64 " has %" PRIu64 " lost events\n",
-						seq_num, disc_evs - last_disc_evs);
+						"packet %" PRIu64 " in stream %" PRIu64 " has %" PRIu64 " lost events\n",
+						seq_num, dsid, disc_evs - disc->last_disc_evs);
 				}
-				last_disc_evs = disc_evs;
+				disc->last_seq_num = seq_num;
+				disc->last_disc_evs = disc_evs;
+			} else {
+				struct ds_disc tmp = {0};
+				int rc2;
+				if ((rc2 = dsidtodisc_insert(&idtodisc, dsid, tmp)) == 0) {
+					disc = dsidtodisc_find(&idtodisc, dsid);
+					disc->last_seq_num = seq_num;
+					disc->last_disc_evs = disc_evs;
+				} else {
+					fprintf(stderr, "dsidtodisc_insert: %s\n", strerror(-rc2));
+				}
 			}
-			last_seq_num = seq_num;
 			count++;
 		}
 	}
@@ -468,11 +496,20 @@ static int read_events(struct actf_event_generator gen, bool quiet, int printer_
 		fprintf(stderr, "read error: %s\n", gen.last_error(gen.self));
 	}
 	fprintf(stderr, "%" PRIu64 " events decoded\n", count);
-	if (last_disc_evs) {
-		fprintf(stderr, "%" PRIu64 " events discarded\n", last_disc_evs);
+
+	uint64_t tot_disc_cnt = 0;
+	uint64_t dsid;
+	struct ds_disc disc;
+	struct dsidtodisc_it it = {0};
+	while (dsidtodisc_foreach(&idtodisc, &dsid, &disc, &it) == 0) {
+		tot_disc_cnt += disc.last_disc_evs;
+	}
+	if (tot_disc_cnt) {
+		fprintf(stderr, "%" PRIu64 " events discarded\n", tot_disc_cnt);
 	}
 
 err:
+	dsidtodisc_free(&idtodisc);
 	actf_printer_free(p);
 	return rc;
 }
