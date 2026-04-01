@@ -479,14 +479,11 @@ static int read_events(struct actf_event_generator gen, bool quiet, int printer_
 				disc->last_seq_num = seq_num;
 				disc->last_disc_evs = disc_evs;
 			} else {
-				struct ds_disc tmp = {0};
-				int rc2;
-				if ((rc2 = dsidtodisc_insert(&idtodisc, dsid, tmp)) == 0) {
-					disc = dsidtodisc_find(&idtodisc, dsid);
+				if ((disc = dsidtodisc_insertp(&idtodisc, dsid, (struct ds_disc){0}))) {
 					disc->last_seq_num = seq_num;
 					disc->last_disc_evs = disc_evs;
 				} else {
-					fprintf(stderr, "dsidtodisc_insert: %s\n", strerror(-rc2));
+					fprintf(stderr, "dsidtodisc_insert error\n");
 				}
 			}
 			count++;

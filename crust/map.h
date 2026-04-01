@@ -133,10 +133,10 @@ static inline void CRUST_PREFIX(MAP_NAME, _free)(struct MAP_NAME *m)
 	CRUST_PREFIX(MAP_NAME, _free_int)(m);
 }
 
-static inline int CRUST_PREFIX(MAP_NAME, _insert_hash_unchk)(struct MAP_NAME *m,
-							     size_t hash,
-							     MAP_KEY_TYPE key,
-							     MAP_VAL_TYPE val);
+static inline MAP_VAL_TYPE *CRUST_PREFIX(MAP_NAME, _insertp_hash_unchk)(struct MAP_NAME *m,
+									size_t hash,
+									MAP_KEY_TYPE key,
+									MAP_VAL_TYPE val);
 
 /* map_grow doubles the capacity of the map. */
 static inline int CRUST_PREFIX(MAP_NAME, _grow)(struct MAP_NAME *m)
@@ -154,9 +154,9 @@ static inline int CRUST_PREFIX(MAP_NAME, _grow)(struct MAP_NAME *m)
 
 	for (size_t i = 0; i < m->cap; i++) {
 		if (m->slots[i].hash != MAP_NOENT) {
-			CRUST_PREFIX(MAP_NAME, _insert_hash_unchk)(&next_m, m->slots[i].hash,
-								   m->slots[i].key,
-								   m->slots[i].val);
+			CRUST_PREFIX(MAP_NAME, _insertp_hash_unchk)(&next_m, m->slots[i].hash,
+								    m->slots[i].key,
+								    m->slots[i].val);
 		}
 	}
 
@@ -188,10 +188,11 @@ static inline bool CRUST_PREFIX(MAP_NAME, _contains)(const struct MAP_NAME *m,
 	return CRUST_PREFIX(MAP_NAME, _find)(m, key) != NULL;
 }
 
-static inline int CRUST_PREFIX(MAP_NAME, _insert_hash_unchk)(struct MAP_NAME *m,
-							     size_t hash,
-							     MAP_KEY_TYPE key,
-							     MAP_VAL_TYPE val)
+
+static inline MAP_VAL_TYPE *CRUST_PREFIX(MAP_NAME, _insertp_hash_unchk)(struct MAP_NAME *m,
+									size_t hash,
+									MAP_KEY_TYPE key,
+									MAP_VAL_TYPE val)
 {
 	size_t index = hash & (m->cap - 1);
 	while (m->slots[index].hash != MAP_NOENT) {
@@ -201,10 +202,10 @@ static inline int CRUST_PREFIX(MAP_NAME, _insert_hash_unchk)(struct MAP_NAME *m,
 	m->slots[index].key = key;
 	m->slots[index].val = val;
 	m->len++;
-	if (m->len >= m->grow_limit) {
-		return CRUST_PREFIX(MAP_NAME, _grow)(m);
+	if (m->len >= m->grow_limit && CRUST_PREFIX(MAP_NAME, _grow)(m) < 0) {
+		return NULL;
 	}
-	return 0;
+	return &m->slots[index].val;
 }
 
 static inline int CRUST_PREFIX(MAP_NAME, _insert)(struct MAP_NAME *m,
@@ -214,8 +215,19 @@ static inline int CRUST_PREFIX(MAP_NAME, _insert)(struct MAP_NAME *m,
 	if (m->len >= m->cap) {
 		return -ENOMEM;
 	}
-	return CRUST_PREFIX(MAP_NAME, _insert_hash_unchk)(m, CRUST_PREFIX(MAP_NAME, _hash)(key),
-							  key, val);
+	return CRUST_PREFIX(MAP_NAME, _insertp_hash_unchk)(m, CRUST_PREFIX(MAP_NAME, _hash)(key),
+							   key, val) ? 0 : -ENOMEM;
+}
+
+static inline MAP_VAL_TYPE *CRUST_PREFIX(MAP_NAME, _insertp)(struct MAP_NAME *m,
+							     MAP_KEY_TYPE key,
+							     MAP_VAL_TYPE val)
+{
+	if (m->len >= m->cap) {
+		return NULL;
+	}
+	return CRUST_PREFIX(MAP_NAME, _insertp_hash_unchk)(m, CRUST_PREFIX(MAP_NAME, _hash)(key),
+							   key, val);
 }
 
 static inline int CRUST_PREFIX(MAP_NAME, _delete)(struct MAP_NAME *m,
