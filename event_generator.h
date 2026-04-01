@@ -73,7 +73,7 @@ typedef int (*actf_seek_ns_from_origin)(void *self, int64_t tstamp);
  * on subsequent API calls.
  *
  * @param self the generator's self parameter
- * @return the last error message or NULL
+ * @return the last error message or the empty string.
  */
 typedef const char *(*actf_last_error)(void *self);
 

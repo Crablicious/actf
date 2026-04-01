@@ -997,8 +997,7 @@ int actf_lua_filter_filter(actf_lua_filter *f, actf_event ***evs, size_t *evs_le
 			if (f->in_evs_i >= f->in_evs_len) {
 				rc = f->gen.generate(f->gen.self, &f->in_evs, &f->in_evs_len);
 				if (rc < 0) {
-					const char *msg = f->gen.last_error(f->gen.self);
-					eprintf(&f->err, "%s", msg ? msg : "unknown actf_event_generate error");
+					eprintf(&f->err, "generate: %s", f->gen.last_error(f->gen.self));
 					f->state = LUA_FILTER_STATE_ERROR;
 					f->err_rc = rc;
 					return rc;
@@ -1054,8 +1053,7 @@ int actf_lua_filter_seek_ns_from_origin(actf_lua_filter *f, int64_t tstamp)
 	int rc = ACTF_OK;
 	rc = f->gen.seek_ns_from_origin(f->gen.self, tstamp);
 	if (rc < 0) {
-		const char *msg = f->gen.last_error(f->gen.self);
-		eprintf(&f->err, "%s", msg ? msg : "unknown actf_seek_ns_from_origin error");
+		eprintf(&f->err, "seek_ns_from_origin: %s", f->gen.last_error(f->gen.self));
 		f->state = LUA_FILTER_STATE_ERROR;
 		f->err_rc = rc;
 		return rc;
@@ -1076,10 +1074,10 @@ const char *lua_filter_last_error(void *self)
 
 const char *actf_lua_filter_last_error(actf_lua_filter *f)
 {
-	if (! f || ! f->err.buf || f->err.buf[0] == '\0') {
-		return NULL;
+	if (!f) {
+		return "";
 	}
-	return f->err.buf;
+	return error_str(&f->err);
 }
 
 int actf_lua_filter_lua_fini(actf_lua_filter *f)

@@ -148,8 +148,8 @@ static int push_fresh_evs_to_pq(actf_muxer *m, size_t gen_i)
 	*in_evs_i = 0;
 	rc = m->gens[gen_i].generate(m->gens[gen_i].self, in_evs, in_evs_len);
 	if (rc < 0) {
-		const char *msg = m->gens[gen_i].last_error(m->gens[gen_i].self);
-		eprintf(&m->err, "generate: %s", msg ? msg : "unknown event_generate error");
+		eprintf(&m->err, "generate: %s",
+			m->gens[gen_i].last_error(m->gens[gen_i].self));
 		m->state = MUXER_STATE_ERROR;
 		return rc;
 	}
@@ -248,9 +248,8 @@ int actf_muxer_seek_ns_from_origin(actf_muxer *m, int64_t tstamp)
 	for (size_t i = 0; i < m->gens_len; i++) {
 		int rc = m->gens[i].seek_ns_from_origin(m->gens[i].self, tstamp);
 		if (rc < 0) {
-			const char *msg = m->gens[i].last_error(m->gens[i].self);
 			eprintf(&m->err, "seek_ns_from_origin: %s",
-				msg ? msg : "unknown seek_ns_from_origin error");
+				m->gens[i].last_error(m->gens[i].self));
 			m->state = MUXER_STATE_ERROR;
 			return rc;
 		}
@@ -268,10 +267,10 @@ static int muxer_seek_ns_from_origin(void *self, int64_t tstamp)
 
 const char *actf_muxer_last_error(actf_muxer *m)
 {
-	if (!m || m->err.buf[0] == '\0') {
-		return NULL;
+	if (!m) {
+		return "";
 	}
-	return m->err.buf;
+	return error_str(&m->err);
 }
 
 static const char *muxer_last_error(void *self)

@@ -109,6 +109,14 @@ int eprependf(struct error *e, const char *fmt, ...)
 	return ACTF_OK;
 }
 
+const char *error_str(struct error *e)
+{
+	if (!e || !e->buf) {
+		return "";
+	}
+	return e->buf;
+}
+
 const char *actf_errstr(int rc)
 {
 	static const char *const strs[] = {

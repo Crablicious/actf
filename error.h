@@ -45,6 +45,9 @@ int eprintf(struct error *e, const char *fmt, ...);
  * return ACTF_OK. */
 int eprependf(struct error *e, const char *fmt, ...);
 
+/* Returns the stored error string or, if absent, an empty string. */
+const char *error_str(struct error *e);
+
 /* Frees the error buffer contents. */
 void error_free(struct error *e);
 

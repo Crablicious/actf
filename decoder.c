@@ -1606,10 +1606,10 @@ static int decoder_seek_ns_from_origin(void *self, int64_t tstamp)
 
 const char *actf_decoder_last_error(actf_decoder *dec)
 {
-	if (!dec || dec->err.buf[0] == '\0') {
-		return NULL;
+	if (!dec) {
+		return "";
 	}
-	return dec->err.buf;
+	return error_str(&dec->err);
 }
 
 static const char *decoder_last_error(void *self)

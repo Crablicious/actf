@@ -391,8 +391,8 @@ int actf_freader_read(actf_freader *rd, actf_event ***evs, size_t *evs_len)
 	}
 	int rc = rd->active_gen.generate(rd->active_gen.self, evs, evs_len);
 	if (rc < 0) {
-		const char *msg = rd->active_gen.last_error(rd->active_gen.self);
-		eprintf(&rd->err, msg);
+		eprintf(&rd->err, "generate: %s",
+			rd->active_gen.last_error(rd->active_gen.self));
 	}
 	return rc;
 }
@@ -410,8 +410,8 @@ int actf_freader_seek_ns_from_origin(actf_freader *rd, int64_t tstamp)
 	}
 	int rc = rd->active_gen.seek_ns_from_origin(rd->active_gen.self, tstamp);
 	if (rc < 0) {
-		const char *msg = rd->active_gen.last_error(rd->active_gen.self);
-		eprintf(&rd->err, msg ? msg : "unknown seek_ns_from_origin error");
+		eprintf(&rd->err, "seek_ns_from_origin: %s",
+			rd->active_gen.last_error(rd->active_gen.self));
 	}
 	return rc;
 }
@@ -424,10 +424,10 @@ static int freader_seek_ns_from_origin(void *self, int64_t tstamp)
 
 const char *actf_freader_last_error(actf_freader *rd)
 {
-	if (!rd || rd->err.buf[0] == '\0') {
-		return NULL;
+	if (!rd) {
+		return "";
 	}
-	return rd->err.buf;
+	return error_str(&rd->err);
 }
 
 /* a actf_last_error */

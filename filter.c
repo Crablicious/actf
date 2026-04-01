@@ -69,8 +69,7 @@ static int ensure_range_has_dates(actf_filter *f)
 	size_t evs_len;
 	rc = f->gen.generate(f->gen.self, &evs, &evs_len);
 	if (rc < 0) {
-		const char *msg = f->gen.last_error(f->gen.self);
-		eprintf(&f->err, "generate: %s", msg ? msg : "unknown actf_event_generate error");
+		eprintf(&f->err, "generate: %s", f->gen.last_error(f->gen.self));
 		f->state = FILTER_STATE_ERROR;
 		return rc;
 	}
@@ -109,9 +108,7 @@ int actf_filter_filter(actf_filter *f, actf_event ***evs, size_t *evs_len)
 	case FILTER_STATE_ONGOING:
 		rc = f->gen.generate(f->gen.self, evs, evs_len);
 		if (rc < 0) {
-			const char *msg = f->gen.last_error(f->gen.self);
-			eprintf(&f->err, "generate: %s",
-				msg ? msg : "unknown actf_event_generate error");
+			eprintf(&f->err, "generate: %s", f->gen.last_error(f->gen.self));
 			f->state = FILTER_STATE_ERROR;
 			return rc;
 		}
@@ -162,9 +159,7 @@ int actf_filter_seek_ns_from_origin(actf_filter *f, int64_t tstamp)
 	}
 	rc = f->gen.seek_ns_from_origin(f->gen.self, tstamp);
 	if (rc < 0) {
-		const char *msg = f->gen.last_error(f->gen.self);
-		eprintf(&f->err, "seek_ns_from_origin: %s",
-			msg ? msg : "unknown actf_seek_ns_from_origin error");
+		eprintf(&f->err, "seek_ns_from_origin: %s", f->gen.last_error(f->gen.self));
 		f->state = FILTER_STATE_ERROR;
 		return rc;
 	}
@@ -181,10 +176,10 @@ static int filter_seek_ns_from_origin(void *self, int64_t tstamp)
 
 const char *actf_filter_last_error(actf_filter *f)
 {
-	if (!f || f->err.buf[0] == '\0') {
-		return NULL;
+	if (!f) {
+		return "";
 	}
-	return f->err.buf;
+	return error_str(&f->err);
 }
 
 /* an actf_last_error */
